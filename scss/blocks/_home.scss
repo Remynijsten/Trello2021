@@ -1,0 +1,56 @@
+.home{
+    box-sizing: border-box;
+    height: 800px;
+    margin-bottom: -25px;
+	.cm-col-6{
+		height: 100%;
+	}
+	&-left{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		img{
+			width: 100px;
+			height: auto;
+			margin-bottom: -50px;
+		}
+		h1{
+		    font-size: 45px;
+		    text-transform: uppercase;
+		}
+		h2{
+			font-weight: normal;
+		}
+		.button-wrapper{
+			display: flex;
+			margin-top: 20px;
+			a{
+				color: $light-text;
+				padding: 16px 50px;
+				background: $dark-blue;
+				margin-right: 20px;
+				border-radius: $border-radius-button;
+				box-shadow: $blue-shadow-medium;
+				transition: 0.3s ease;
+				&:hover{
+					transform: scale(0.95);
+					box-shadow: $blue-shadow-small;
+				}
+				&:not(:first-child){
+					background: $orange-gradient;
+					box-shadow: $orange-shadow-medium;
+					&:hover{
+						box-shadow: $orange-shadow-small;
+					}
+				}				
+			}
+
+		}
+	}
+	&-right{
+		background-image: url('../img/CM-VECTOR.gif');
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+}
