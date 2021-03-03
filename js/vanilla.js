@@ -20,3 +20,27 @@ function ajax(model, method, params, callback){
 		xhr.send(null);
 	}
 }
+
+function display_error(message, mode){
+	let modal = document.querySelector('.modal');
+	let logo = modal.querySelector('.modal_body_logo');
+
+	if(mode == 'error'){
+		logo.classList.remove('logo_check');
+		logo.classList.add('logo_error');
+	} else{
+		logo.classList.remove('logo_error');
+		logo.classList.add('logo_check');		
+	}
+
+	modal.classList.remove('d-none');
+	modal.classList.add('d-flex');
+	modal.querySelector('.modal_body_message').innerText = message;
+}
+
+document.querySelector('.modal_body_close').onclick = function(){
+	let modal = document.querySelector('.modal');
+
+	modal.classList.remove('d-flex');
+	modal.classList.add('d-none');
+}

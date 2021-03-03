@@ -2,15 +2,15 @@
 @import "core/borders";
 @import "core/typography";
 @import "core/layout";
-
 @import "core/buttons";
 
-@import "blocks/header";
-@import "blocks/home";
-@import "blocks/register";
+@import "sections/header";
+@import "sections/footer";
 
+@import "pages/home";
+@import "pages/register";
 
-@import "blocks/footer";
+@import "blocks/modal";
 
 .row, *{
 	margin: 0;

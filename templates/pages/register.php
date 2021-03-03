@@ -38,3 +38,7 @@
 		</div>			
 	</div>
 </section>
+
+<?php
+
+include(ROOT . 'templates/blocks/error_modal.php');

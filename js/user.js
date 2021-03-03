@@ -9,6 +9,17 @@ register_form.addEventListener('submit', function(e){
 	ajax.open("POST", "model/usermodel.php", false);
 	ajax.send(data);
 	
-	let response = ajax.responseText;
+	switch(ajax.responseText) {
+		case 100:
+			display_error('User allready exists');
+			break;
+		case 500:
+			display_error('There was a connection error');
+			break;
+
+		default:
+			
+			break;
+	}
 });
 
