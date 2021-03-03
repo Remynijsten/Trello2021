@@ -1,11 +1,7 @@
 footer{
-	background-color: $dark-blue;
-	color: $light-text;
-	text-align: center;
-	height: 30px;
-	display: flex;
-    justify-content: center;
-    align-items: center;
+    color: $light-text;
+    text-align: right;
+    padding: 15px;
     position: sticky;
     bottom: 0;
 }

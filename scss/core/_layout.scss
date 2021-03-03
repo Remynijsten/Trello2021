@@ -1,14 +1,8 @@
-.container{
-	display: flex;
+.w3-container{
+	padding: 0px 10%;
 }
 
-.cm-col-6{
-	width: 50%;
+body{
+	overflow: hidden;
 }
 
-.flex-end{
-	justify-content: flex-end;
-}
-.flex-start{
-	justify-content: flex-start;
-}

@@ -1,13 +1,16 @@
 @import "core/colors";
-@import "core/layout";
 @import "core/borders";
+@import "core/typography";
+@import "core/layout";
+
+@import "core/buttons";
 
 @import "blocks/header";
 @import "blocks/home";
+@import "blocks/register";
+
 
 @import "blocks/footer";
-
-
 
 .row, *{
 	margin: 0;
@@ -16,11 +19,7 @@
 }
 
 .main{
-	width: 1000px;
+	width: 1200px;
 	margin: 0 auto;
 	display: inline-flex;
-}
-
-a{
-	text-decoration: none;
 }

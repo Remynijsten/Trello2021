@@ -1,45 +1,63 @@
 header{
-	background-color: $dark-blue;
-	height: 50px;
-	.cm-col-6{
+	.cm-logo{
+	    width: 250px;
+	    height: 100px;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	.logo-wrapper{
 		display: flex;
-		height: 100%;
-		a{
-			display: flex;
-			img{
-				width: 100px;
-				height: auto;
-				object-fit: contain;
-			}			
-		}
+		align-items: center;
+	}	
 
-		nav{
-			display: flex;
-			ul{
-				list-style: none;
-				align-self: center;
-				li:not(.register){
-					display: inline-block;
-					margin: 0 25px;
-					color: $light-text;
-					transition: 0.3s ease;
-					cursor: pointer;
-					border-bottom: 2px solid $dark-blue;
-					&:hover{
-						color: darken($light-text, 5%);
-						border-bottom: 2px solid $orange;
-					}
-				}
-				.register{
-					display: inline-block;
-					padding: 10px 20px;
-					color: $light-text;
-					border-radius: 5px;
-					box-shadow: 0 0 10px rgba(255, 132, 77, 0.5);
-					cursor: pointer;
-					background: $orange-gradient;
+	nav{
+		display: flex;
+		justify-content: flex-end;
+		ul{
+			padding: 5px 0;
+			margin: 0;
+			@media(max-width: 64em){
+				display: none;
+			}
+			li:not(.register-button){
+				display: inline-block;
+				margin: 0 25px;
+				color: $light-text;
+				transition: 0.3s ease;
+				cursor: pointer;
+				border-bottom: 2px solid $dark-blue;
+				&:hover{
+					color: darken($light-text, 5%);
+					border-bottom: 2px solid $orange;
 				}
 			}
+			.register-button{
+				display: inline-block;
+				padding: 10px 20px;
+				color: $light-text;
+				border-radius: 5px;
+				box-shadow: 0 0 10px rgba(255, 132, 77, 0.5);
+				cursor: pointer;
+				background: $orange-gradient;
+			}
 		}
+		.menu-toggle{
+			display: none;
+			@media(max-width:64em){
+				display: block;
+			}
+			width: 50px;
+		}
+	}			
+}
+
+.header-home{
+	background-color: $dark-blue;
+	.cm-logo{
+		background-image: url('../img/CM-LOGO.png');
 	}
+}
+.header-default .cm-logo{
+    background-image: url('../img/CM-LOGO-DARK.png');
 }

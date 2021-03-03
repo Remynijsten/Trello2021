@@ -1,0 +1,15 @@
+.cm-button-orange{
+	color: $light-text;
+	padding: 16px 50px;
+	margin-right: 20px;
+	background: $orange-gradient;
+	box-shadow: $orange-shadow-medium;
+	border-radius: $border-radius-button;
+	transition: 0.3s ease;
+	border: none;
+	cursor: pointer;
+	&:hover{
+		transform: scale(0.95);
+		box-shadow: $orange-shadow-small;
+	}
+}
