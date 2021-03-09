@@ -20,17 +20,12 @@
 	</div>
 </header>
 <main>
-<section class="register container">
-	<div class="register-background"></div>
+<section class="login container">
+	<div class="login-background"></div>
 	<div class="row">
-		<div class="col-lg-6 col-md-12">
-			<img src="<?= ROOT ?>img/CM-VECTOR.png">
-		</div>
-		
-		<div class="align-self-center col-lg-6 col-md-12 d-flex flex-column register-column">
-			<h1>Create a free account</h1>
-			<form class="user-form" data-form="register">
-				<input type="text" name="name" placeholder="Name" autocomplete="off">
+		<div class="align-self-center col-lg-6 col-md-12 d-flex flex-column login-column">
+			<h1>Welcome back!</h1>
+			<form class="user-form" data-form="login">
 				<input type="email" name="email" placeholder="Email" autocomplete="off">
 				<input type="password" name="password" placeholder="Password (min. 8 characters)" autocomplete="off">
 				<button type="submit" class="cm-button-orange">Let's start</button>

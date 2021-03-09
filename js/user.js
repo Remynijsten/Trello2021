@@ -1,30 +1,34 @@
-const register_form = document.querySelector('.register-form');
+const user_form = document.querySelector('.user-form');
 
-register_form.addEventListener('submit', function(e){
+user_form.addEventListener('submit', function(e){
 	e.preventDefault();
-	let data = new FormData(register_form);
-	data.append('function', 'register');
+	let data = new FormData(user_form);
+
+	user_form.dataset.form == 'login' ? data.append('function', 'login') : data.append('function', 'register');
 
 	let ajax = new XMLHttpRequest();
 	ajax.open("POST", "model/usermodel.php", false);
 	ajax.send(data);
 	
-	switch(ajax.responseText) {
+	display_message(return_response(ajax.responseText));
+});
+
+function return_response(code) {
+	switch(code) {
 		case 100:
-			display_error('User allready exists', 'error');
+			return ['User allready exists', 'error'];
 			break;
 
 		case 200:
-			display_error('Not all fields are filled in', 'error');
+			return ['Not all fields are filled in', 'error'];
 			break;
 
 		case 500:
-			display_error('There was a connection error', 'error');
+			return ['There was a server error, Please contact support.', 'error'];
 			break;
-			
+
 		default:
-			
+			return ['Multiple responses from the server, Please contact support', 'error'];
 			break;
 	}
-});
-
+}

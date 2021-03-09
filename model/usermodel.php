@@ -1,7 +1,7 @@
 <?php
 
 require('../class/class.user.php');
-$error;
+$return_code;
 
 // When the user hasn't logged in yet. We set the session variable to be able load the default header.
 if(!isset($_SESSION['login'])){
@@ -18,15 +18,15 @@ $function 	= $_POST['function'];
 if(!check_empty_vars($name, $mail, $password)){
 	$user = new User($name, $mail, $password);
 } else {
-	$error = 200;
+	$return_code = 200;
 }
 
 //Routing based on post function runs if errors are still empty
-if(isset($function) && empty($error)){
+if(isset($function) && empty($return_code)){
 	switch ($function) {
 		case 'register':
 			if( $user->check_user($user->mail)){
-				$error = 100;
+				$return_code = 100;
 			} else {
 				$user->create_user($user->name, $user->mail, $user->password);
 			}
@@ -37,6 +37,6 @@ if(isset($function) && empty($error)){
 	}	
 }
 
-if(!empty($error)){
-	echo $error;
+if(!empty($return_code)){
+	echo $return_code;
 }

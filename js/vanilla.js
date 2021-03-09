@@ -21,9 +21,11 @@ function ajax(model, method, params, callback){
 	}
 }
 
-function display_error(message, mode){
-	let modal = document.querySelector('.modal');
-	let logo = modal.querySelector('.modal_body_logo');
+function display_message(data){
+	let message = data[0];
+	let mode 	= data[1];
+	let modal 	= document.querySelector('.modal');
+	let logo 	= modal.querySelector('.modal_body_logo');
 
 	if(mode == 'error'){
 		logo.classList.remove('logo_check');

@@ -36,7 +36,7 @@ class User {
 
 			return $stmt->execute();	
 		} catch(PDOException $e){
-			$error = 500;
+			$return_code = 500;
 		}
 	}
 
@@ -58,29 +58,28 @@ class User {
 			}
 
 		} catch(PDOException $e){
-			$error = 500;
+			$return_code = 500;
 		}
 	}
 
 	/**
 	  * Function validate_login 	- Checks if user allready exists by counting rows
 	  */
-	public function validate_login(){
+	public function validate_login($mail, $password){
 
 		global $conn;
 		try{
 			$stmt = $conn->prepare('SELECT password FROM `users` WHERE email = :mail');
-			$stmt->bindParam(':mail', $this->mail);
+			$stmt->bindParam(':mail', $mail);
 			$stmt->execute();
 			$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			return password_verify( $this->password, $result['password'] );
+			return password_verify( $password, $result['password'] );
 
 		} catch(PDOException $e){
-			$error = 500;
+			$return_code = 500;
 		}
 
 	}
-
 
 }
