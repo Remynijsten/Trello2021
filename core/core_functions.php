@@ -11,3 +11,19 @@ function validate($data) {
 	$data = htmlspecialchars($data);
 	return $data;
 }
+
+/**
+ * Checks if any of the given parameters is empty
+ * @return Boolean
+ */
+function check_empty_vars() {
+
+	$empty = false;
+	foreach(func_get_args() as $value){
+		if(empty($value)){
+			$empty = true;
+		}
+	}
+	return $empty;
+
+}

@@ -11,12 +11,17 @@ register_form.addEventListener('submit', function(e){
 	
 	switch(ajax.responseText) {
 		case 100:
-			display_error('User allready exists');
-			break;
-		case 500:
-			display_error('There was a connection error');
+			display_error('User allready exists', 'error');
 			break;
 
+		case 200:
+			display_error('Not all fields are filled in', 'error');
+			break;
+
+		case 500:
+			display_error('There was a connection error', 'error');
+			break;
+			
 		default:
 			
 			break;
