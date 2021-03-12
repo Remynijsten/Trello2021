@@ -1,0 +1,48 @@
+.lists{
+	background-image: url('../img/CM-BG.png');
+	.title{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 25px;
+		border-bottom: 2px solid #1a1a1a;
+		span{
+			cursor: pointer;
+		}
+	}
+	&-container{
+		width: 250px;
+		height: 100px;
+		position: relative;
+		background: #f3f9f9;
+		border-radius: 5px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+		padding: 25px;
+		&-item{
+			.fa-bars{
+				@include pos_absolute;
+				left: 10px;
+				cursor: grab;
+			}
+			&-controls{
+				@include pos_absolute;
+				justify-content: space-between;
+				padding: 15px 0px;
+				right: 10px;
+				.fa-ellipsis-h{
+					cursor: pointer;
+				}
+				&-color{
+					background-color: blue;
+					width: 15px;
+					height: 15px;
+					border-radius: 100%;
+					cursor: pointer;
+				}			
+			}
+		}		
+	}
+}

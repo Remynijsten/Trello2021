@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $route 		= explode('/', $_SERVER['REQUEST_URI']);
 
 /**
@@ -11,13 +11,20 @@ if(empty($route[2])){
 }else{
 	render($route[2]);
 }
-    
+  
 /**
   *	render function - Load the header, related page and the footer.
   * @param string $file - The filename to load in the view
   */
 function render($file) {
     require('templates/head.php');
+    
+    if(!$_SESSION['login']){
+        require('templates/header-home.php');
+    } else{
+        require('templates/header.php');
+    
+    }
     require('templates/pages/' . $file . '.php');   
 	require('templates/footer.php');
 }

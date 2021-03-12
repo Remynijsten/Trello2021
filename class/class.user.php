@@ -20,6 +20,7 @@ class User {
 		$_SESSION['login'] 		= true;
 		$_SESSION['mail'] 		= $mail;
 		$_SESSION['name'] 		= $this->return_name($mail);
+		$_SESSION['user_id'] 	= $this->return_user_id($mail);
 	}
 
 	public function return_name($mail){
@@ -31,6 +32,17 @@ class User {
 
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $result['name'];
+	}
+
+	public function return_user_id($mail){
+		global $conn;
+
+		$stmt = $conn->prepare('SELECT id FROM `users` WHERE email = :mail');
+		$stmt->bindParam(':mail', $mail);
+		$stmt->execute();
+
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result['id'];
 	}
 
 	/**

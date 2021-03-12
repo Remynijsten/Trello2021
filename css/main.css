@@ -8,12 +8,12 @@ a {
 
 body {
   overflow: hidden;
+  padding-top: 100px;
 }
 
 .cm-button-yellow {
   color: #1a1a1a;
   padding: 16px 50px;
-  margin-right: 20px;
   background: #ECBA5C;
   border-radius: 5px;
   transition: 0.3s ease;
@@ -27,6 +27,9 @@ body {
 
 header {
   background-color: #1a1a1a;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 header .cm-logo {
   width: 250px;
@@ -264,6 +267,63 @@ footer {
   font-size: 18px;
 }
 
+.lists {
+  background-image: url("../img/CM-BG.png");
+}
+.lists .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #1a1a1a;
+}
+.lists .title span {
+  cursor: pointer;
+}
+.lists-container {
+  width: 250px;
+  height: 100px;
+  position: relative;
+  background: #f3f9f9;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+}
+.lists-container-item .fa-bars {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  bottom: 0;
+  top: 0;
+  left: 10px;
+  cursor: grab;
+}
+.lists-container-item-controls {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  bottom: 0;
+  top: 0;
+  justify-content: space-between;
+  padding: 15px 0px;
+  right: 10px;
+}
+.lists-container-item-controls .fa-ellipsis-h {
+  cursor: pointer;
+}
+.lists-container-item-controls-color {
+  background-color: blue;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
 .modal {
   background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
@@ -309,11 +369,20 @@ footer {
   padding: 0;
   font-family: 'Niramit', sans-serif;
 }
+.row *, * * {
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 0;
+  margin: 0 auto;
+}
 
 .main {
   width: 1200px;
   margin: 0 auto;
-  display: inline-flex;
+  height: 100vh;
 }
 
 /*# sourceMappingURL=main.css.map */
