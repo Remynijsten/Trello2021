@@ -1,4 +1,5 @@
 header{
+	background-color: #1a1a1a;
 	.cm-logo{
 	    width: 250px;
 	    height: 100px;
@@ -9,6 +10,9 @@ header{
 	.logo-wrapper{
 		display: flex;
 		align-items: center;
+		.cm-logo{
+			background-image: url('../img/CM-LOGO.png');
+		}
 	}	
 
 	nav{
@@ -26,20 +30,17 @@ header{
 				color: $light-text;
 				transition: 0.3s ease;
 				cursor: pointer;
-				border-bottom: 2px solid $dark-blue;
+				border-bottom: 2px solid #1a1a1a;
 				&:hover{
 					color: darken($light-text, 5%);
-					border-bottom: 2px solid $orange;
+					border-bottom: 2px solid $yellow;
 				}
 			}
 			.register-button{
 				display: inline-block;
 				padding: 10px 20px;
-				color: $light-text;
 				border-radius: 5px;
-				box-shadow: 0 0 10px rgba(255, 132, 77, 0.5);
 				cursor: pointer;
-				background: $orange-gradient;
 			}
 		}
 		.menu-toggle{
@@ -50,14 +51,4 @@ header{
 			width: 50px;
 		}
 	}			
-}
-
-.header-home{
-	background-color: $dark-blue;
-	.cm-logo{
-		background-image: url('../img/CM-LOGO.png');
-	}
-}
-.header-default .cm-logo{
-    background-image: url('../img/CM-LOGO-DARK.png');
 }

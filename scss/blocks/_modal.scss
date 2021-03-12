@@ -17,8 +17,8 @@
 			font-size: 1.5em;
 	    }
 	    &_logo{
-			width: 100px;
-			height: 100px;
+			width: 150px;
+			height: 150px;
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
@@ -28,12 +28,12 @@
 			top: 10%;
 			margin: 0 auto;
 	    }
-	   .logo_error{
-	    	background-image: url('../img/CM-ERROR.svg');
-	    }
-	   	.logo_check{
-	    	background-image: url('../img/CM-CHECK.svg');
-	    }
+	   // .logo_error{
+	   //  	background-image: url('../img/CM-ERROR.svg');
+	   //  }
+	   // 	.logo_check{
+	   //  	background-image: url('../img/CM-CHECK.gif');
+	   //  }
 	    &_message{
 			padding: 50px 100px;
 			height: 100%;

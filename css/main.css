@@ -10,22 +10,24 @@ body {
   overflow: hidden;
 }
 
-.cm-button-orange {
-  color: #F3F9F9;
+.cm-button-yellow {
+  color: #1a1a1a;
   padding: 16px 50px;
   margin-right: 20px;
-  background: linear-gradient(90deg, #ff844d 0%, #ffad4d 100%);
-  box-shadow: 0 0 25px rgba(255, 132, 77, 0.5);
-  border-radius: 50px;
+  background: #ECBA5C;
+  border-radius: 5px;
   transition: 0.3s ease;
   border: none;
   cursor: pointer;
 }
-.cm-button-orange:hover {
+.cm-button-yellow:hover {
   transform: scale(0.95);
   box-shadow: 0 0 10px rgba(255, 132, 77, 0.5);
 }
 
+header {
+  background-color: #1a1a1a;
+}
 header .cm-logo {
   width: 250px;
   height: 100px;
@@ -36,6 +38,9 @@ header .cm-logo {
 header .logo-wrapper {
   display: flex;
   align-items: center;
+}
+header .logo-wrapper .cm-logo {
+  background-image: url("../img/CM-LOGO.png");
 }
 header nav {
   display: flex;
@@ -56,20 +61,17 @@ header nav ul li:not(.register-button) {
   color: #F3F9F9;
   transition: 0.3s ease;
   cursor: pointer;
-  border-bottom: 2px solid #455A64;
+  border-bottom: 2px solid #1a1a1a;
 }
 header nav ul li:not(.register-button):hover {
   color: #e2f1f1;
-  border-bottom: 2px solid #ff844d;
+  border-bottom: 2px solid #ECBA5C;
 }
 header nav ul .register-button {
   display: inline-block;
   padding: 10px 20px;
-  color: #F3F9F9;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(255, 132, 77, 0.5);
   cursor: pointer;
-  background: linear-gradient(90deg, #ff844d 0%, #ffad4d 100%);
 }
 header nav .menu-toggle {
   display: none;
@@ -81,22 +83,13 @@ header nav .menu-toggle {
   }
 }
 
-.header-home {
-  background-color: #455A64;
-}
-.header-home .cm-logo {
-  background-image: url("../img/CM-LOGO.png");
-}
-
-.header-default .cm-logo {
-  background-image: url("../img/CM-LOGO-DARK.png");
-}
-
 footer {
-  color: #F3F9F9;
-  text-align: right;
+  color: #f3f9f9;
+  background-color: #1a1a1a;
+  text-align: center;
   padding: 15px;
-  position: sticky;
+  width: 100%;
+  position: fixed;
   bottom: 0;
 }
 
@@ -167,7 +160,7 @@ footer {
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url(../img/CM-DIVIDER-BLUE.png);
+  background-image: url(../img/CM-BG-REGISTER.png);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -209,44 +202,45 @@ footer {
   font-size: 18px;
 }
 
-.login {
+.login, .register {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 95vh;
 }
-.login-column {
+.login-column, .register-column {
   margin: 0 auto;
   background: white;
   border-radius: 10px;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
   padding: 25px;
+  text-align: center;
 }
-.login-background {
+.login-background, .register-background {
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url(../img/CM-DIVIDER-BLUE.png);
+  background-image: url(../img/CM-BG.png);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   z-index: -1;
 }
-.login img {
+.login img, .register img {
   width: 100%;
   height: auto;
   object-fit: cover;
 }
-.login h1 {
+.login h1, .register h1 {
   padding-left: 25px;
   color: #455A64;
 }
-.login .user-form {
+.login .user-form, .register .user-form {
   margin-top: 15px;
 }
-.login .user-form input {
+.login .user-form input, .register .user-form input {
   width: calc(100% - 25px);
   border-radius: 50px;
   border-radius: 50px;
@@ -258,13 +252,13 @@ footer {
   font-size: 24px;
   color: #455A64;
 }
-.login .user-form input:focus {
+.login .user-form input:focus, .register .user-form input:focus {
   outline: none;
 }
-.login .user-form input:caret {
+.login .user-form input:caret, .register .user-form input:caret {
   color: #455A64;
 }
-.login .user-form button {
+.login .user-form button, .register .user-form button {
   margin-top: 15px;
   text-transform: uppercase;
   font-size: 18px;
@@ -291,8 +285,8 @@ footer {
   font-size: 1.5em;
 }
 .modal_body_logo {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -301,12 +295,6 @@ footer {
   right: 0;
   top: 10%;
   margin: 0 auto;
-}
-.modal_body .logo_error {
-  background-image: url("../img/CM-ERROR.svg");
-}
-.modal_body .logo_check {
-  background-image: url("../img/CM-CHECK.svg");
 }
 .modal_body_message {
   padding: 50px 100px;

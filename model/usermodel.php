@@ -8,27 +8,66 @@ if(!isset($_SESSION['login'])){
 	$_SESSION['login'] = false;
 }
 
-// Validate user input & Hash password for data insertion
-$name 		= validate($_POST['name']);
-$mail 		= validate($_POST['email']);
-$password 	= password_hash(validate($_POST['password']), PASSWORD_BCRYPT);
-$function 	= $_POST['function'];
-
-// Checks if all fields are filled in and create object instance
-if(!check_empty_vars($name, $mail, $password)){
-	$user = new User($name, $mail, $password);
+// Clean user input & Hash password for data insertion
+if(isset($_POST['name'])){
+	$name 			= validate($_POST['name']);	
 } else {
-	$return_code = 200;
+	$name 			= 'Guest';
 }
 
-//Routing based on post function runs if errors are still empty
+if(isset($_POST['email'])){
+	$mail 			= validate($_POST['email']);
+}
+
+// Check if password exists and if not empty to prevent empty string hashing which results in a !empty string.
+if(isset($_POST['password']) && !empty($_POST['password'])){
+	$password 		= password_hash(validate($_POST['password']), PASSWORD_BCRYPT);	
+} else {
+	$return_code 	= 200;
+}
+
+$function 	= $_POST['function'];
+
+// If no errors have been found up untill this point, create the user object from the User Class.
+if(empty($return_code)){
+	$user = new User($name, $mail, $password);
+}
+
+// //Routing based on post function runs if errors are still empty
 if(isset($function) && empty($return_code)){
 	switch ($function) {
 		case 'register':
-			if( $user->check_user($user->mail)){
-				$return_code = 100;
+
+			// Check if all fields are filled & if the user doesn't yet exist. Then create the user
+			if(check_empty_vars($name, $mail, $password)){
+				$return_code = 200;
 			} else {
-				$user->create_user($user->name, $user->mail, $user->password);
+				if( $user->check_user($user->mail)){
+					$return_code = 100;
+				} else {
+					$user->create_user($user->name, $user->mail, $user->password);
+				}				
+			}
+			break;
+
+		case 'login':
+			// Check if user entered correct credentials. Then login the session and return response code.
+			if(!check_empty_vars($mail, $password)){
+
+				// If user's mail doesn't exist in the database
+				if(!$user->check_user($user->mail)){
+					$return_code = 75;
+				} else {
+					if(!$user->validate_login($user->mail, $_POST['password'])){
+						echo $user->validate_login($user->mail, $_POST['password']);
+						$return_code = 125;
+					} else {
+						$user->log_in($user->name, $user->mail);
+						$return_code = 50;
+					}
+				}
+			} else{
+				$return_code = 200;
 			}
 			break;
 		
@@ -37,6 +76,7 @@ if(isset($function) && empty($return_code)){
 	}	
 }
 
+//If errors have been found, echo the code to the front-end
 if(!empty($return_code)){
 	echo $return_code;
 }

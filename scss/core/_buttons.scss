@@ -1,10 +1,9 @@
-.cm-button-orange{
-	color: $light-text;
+.cm-button-yellow{
+	color: $dark-text;
 	padding: 16px 50px;
 	margin-right: 20px;
-	background: $orange-gradient;
-	box-shadow: $orange-shadow-medium;
-	border-radius: $border-radius-button;
+	background: $yellow;
+	border-radius: 5px;
 	transition: 0.3s ease;
 	border: none;
 	cursor: pointer;

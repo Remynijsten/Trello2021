@@ -3,11 +3,15 @@ function display_message(data){
 	let mode 	= data[1];
 	let modal 	= document.querySelector('.modal');
 	let logo 	= modal.querySelector('.modal_body_logo');
+	lottie.stop();
+	lottie.play();
 
 	if(mode == 'error'){
+		lottie.load('https://assets3.lottiefiles.com/packages/lf20_IIxb9U.json');
 		logo.classList.remove('logo_check');
 		logo.classList.add('logo_error');
 	} else{
+		lottie.load('https://assets6.lottiefiles.com/packages/lf20_0fwl68.json');
 		logo.classList.remove('logo_error');
 		logo.classList.add('logo_check');		
 	}

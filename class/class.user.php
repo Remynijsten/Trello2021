@@ -16,10 +16,21 @@ class User {
     	$this->password 		= $password;
 	}
 
-	public function log_in(){
+	public function log_in($name, $mail){
 		$_SESSION['login'] 		= true;
-		$_SESSION['username'] 	= $this->username;
-		$_SESSION['mail'] 		= $this->mail;
+		$_SESSION['mail'] 		= $mail;
+		$_SESSION['name'] 		= $this->return_name($mail);
+	}
+
+	public function return_name($mail){
+		global $conn;
+
+		$stmt = $conn->prepare('SELECT * FROM `users` WHERE email = :mail');
+		$stmt->bindParam(':mail', $mail);
+		$stmt->execute();
+
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result['name'];
 	}
 
 	/**
@@ -69,17 +80,18 @@ class User {
 
 		global $conn;
 		try{
-			$stmt = $conn->prepare('SELECT password FROM `users` WHERE email = :mail');
+			$stmt = $conn->prepare('SELECT * FROM `users` WHERE email = :mail');
 			$stmt->bindParam(':mail', $mail);
 			$stmt->execute();
 			$result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-			return password_verify( $password, $result['password'] );
+			if(password_verify( $password, $result['password'] ) == true){
+				return true;
+			} else{
+				return false;
+			}
 
 		} catch(PDOException $e){
 			$return_code = 500;
 		}
-
 	}
-
 }
