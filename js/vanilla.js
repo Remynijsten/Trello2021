@@ -25,5 +25,17 @@ document.querySelector('.modal_body_close').onclick = function(){
 	let modal = document.querySelector('.modal');
 
 	modal.classList.remove('d-flex');
+	modal.classList.remove('d-block');
 	modal.classList.add('d-none');
+}
+
+function ajax_request(data, server_function, model){
+	data.function = server_function;
+
+	let ajax = new XMLHttpRequest();
+	ajax.open("POST", model, false);
+	ajax.send(JSON.stringify( data ));
+	let response = JSON.parse(ajax.responseText);
+	
+	return response;
 }

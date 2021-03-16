@@ -8,7 +8,7 @@ a {
 
 body {
   overflow: hidden;
-  padding-top: 100px;
+  padding-top: 150px;
 }
 
 .cm-button-yellow {
@@ -269,6 +269,7 @@ footer {
 
 .lists {
   background-image: url("../img/CM-BG.png");
+  background-size: cover;
 }
 .lists .title {
   display: flex;
@@ -283,6 +284,7 @@ footer {
 .lists-container {
   width: 250px;
   height: 100px;
+  margin-bottom: 25px;
   position: relative;
   background: #f3f9f9;
   border-radius: 5px;
@@ -323,6 +325,88 @@ footer {
   border-radius: 100%;
   cursor: pointer;
 }
+.lists-container-menu {
+  width: 100px;
+  height: auto;
+  padding: 10px 5px;
+  background-color: #f3f9f9;
+  border-radius: 5px;
+  position: absolute;
+  right: -105px;
+  top: 0px;
+}
+.lists-modal .modal_body {
+  width: 500px;
+}
+.lists-modal .modal_body_content {
+  padding: 50px;
+}
+.lists-modal .modal_body_content input[name='title'] {
+  width: 100%;
+  border: none;
+  border-bottom: 3px solid grey;
+  margin-bottom: 25px;
+  font-size: 24px;
+  border-radius: 25px;
+  padding-left: 25px;
+}
+.lists-modal .modal_body_content input[name='title']:focus {
+  outline: none;
+}
+.lists-modal .modal_body_content label {
+  display: block;
+}
+.lists-modal .modal_body_content select[name='color'] {
+  display: none;
+}
+.lists-modal .modal_body_content .color-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 50px;
+}
+.lists-modal .modal_body_content .color-list li {
+  display: inline-block;
+}
+.lists-modal .modal_body_content .color-list li .colorpicker {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  position: relative;
+}
+.lists-modal .modal_body_content .color-list li .colorpicker:hover {
+  transform: scale(0.9);
+}
+.lists-modal .modal_body_content .color-list li .active:after {
+  display: flex;
+  content: '^';
+  color: white;
+  position: absolute;
+  bottom: -30px;
+  font-size: 25px;
+  left: 0;
+  right: 0;
+  justify-content: center;
+}
+.lists-modal .modal_body_content .addlist-button {
+  text-align: center;
+  padding: 10px 25px;
+  background-color: #ecba5c;
+  color: #1a1a1a;
+  border-radius: 5px;
+  margin-top: 25px;
+}
+
+.add_list {
+  position: absolute;
+  left: 0;
+  bottom: 25px;
+  padding: 10px 25px;
+  background-color: #1a1a1a;
+  color: #F3F9F9;
+  cursor: pointer;
+}
 
 .modal {
   background-color: rgba(0, 0, 0, 0.5);
@@ -332,7 +416,8 @@ footer {
 .modal_body {
   position: relative;
   height: 300px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
   display: block;
   margin: 0 auto;
   border-radius: 10px;
@@ -369,9 +454,6 @@ footer {
   padding: 0;
   font-family: 'Niramit', sans-serif;
 }
-.row *, * * {
-  padding: 0;
-}
 
 .container {
   max-width: 1200px;
@@ -382,7 +464,8 @@ footer {
 .main {
   width: 1200px;
   margin: 0 auto;
-  height: 100vh;
+  height: 82vh;
+  position: relative;
 }
 
 /*# sourceMappingURL=main.css.map */

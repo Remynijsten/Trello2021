@@ -14,7 +14,7 @@ user_form.addEventListener('submit', function(e){
 	// Display error messages to the user
 	display_message(return_response(ajax.responseText));
 
-	// If the responsecode is login, redirect to lists page.
+	// If the response code is login, redirect to lists page.
 	setTimeout(function(){
 		ajax.responseText == '50' ? window.location.href = root + 'lists' : '' ;	
 	}, 1000);

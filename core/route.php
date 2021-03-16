@@ -23,8 +23,8 @@ function render($file) {
         require('templates/header-home.php');
     } else{
         require('templates/header.php');
-    
     }
+
     require('templates/pages/' . $file . '.php');   
 	require('templates/footer.php');
 }

@@ -19,9 +19,6 @@
 	margin: 0;
 	padding: 0;
 	font-family: 'Niramit', sans-serif;
-	*{
-		padding: 0;
-	}
 }
 
 .container{
@@ -33,5 +30,6 @@
 .main{
 	width: 1200px;
 	margin: 0 auto;
-	height: 100vh;
+	height: 82vh;
+	position: relative;
 }
