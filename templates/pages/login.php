@@ -12,6 +12,6 @@
 		</div>			
 	</div>
 </section>
-
+<script type="text/javascript" src="<?= './js/user_controller.js' ?>"></script>
 <?php
 include(ROOT . 'templates/blocks/error_modal.php');

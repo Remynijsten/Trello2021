@@ -14,7 +14,8 @@ if(!$_SESSION['login']){
 	<div class="lists-section"></div>
 	<div class="add_list">Add new list +</div>
 </div>
-
 <?php
 include(ROOT . 'templates/blocks/add-list-modal.php');
 include(ROOT . 'templates/blocks/update-list-modal.php');
+?>
+<script type="text/javascript" src="<?= './js/list_controller.js' ?>"></script>

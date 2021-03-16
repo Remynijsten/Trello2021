@@ -69,6 +69,11 @@ function load_cards(data){
 		document.querySelectorAll('.update-list-modal button').forEach(button => button.dataset.id = this.closest('.lists-container').dataset.id);
 	}));
 
+	document.querySelectorAll('.viewlist').forEach(list => list.addEventListener('click', function(){
+		let id = lists[this.closest('.lists-container').dataset.id].id;
+		window.location.href = '//' + root_url + 'cards?list=' + id;
+	}));
+
 }
 
 get_all_lists();
@@ -76,7 +81,10 @@ get_all_lists();
 /**
   * Cancel button event listener
   */
-document.querySelector('.cancel').onclick = function(){ document.querySelector('.update-list-modal .modal_body_close').click() }
+document.querySelector('.cancel').onclick = function(){ 
+	this.closest('.modal').classList.remove('d-flex');
+	this.closest('.modal').classList.add('d-none');
+}
 
 /**
   * Update modal button functions
@@ -122,11 +130,6 @@ document.querySelector('.addlist-button').addEventListener('click', function(){
 	get_all_lists();
 });
 
-
-document.querySelectorAll('.viewlist').forEach(list => list.addEventListener('click', function(){
-	let id = lists[this.closest('.lists-container').dataset.id].id;
-	window.location.href = '//' + root_url + 'cards?list=' + id;
-}));
 
 function open_modal(name){
 	let modal = document.querySelector(`.${name}-modal`);

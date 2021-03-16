@@ -8,8 +8,8 @@
 		<link rel="stylesheet" type="text/css" href="<?= ROOT ?>development/node_modules/animate.css/animate.min.css">
 		<script type="text/javascript" src="<?= ROOT ?>development/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
-
+		<script type="text/javascript" src="<?= './js/vanilla.js' ?>"></script>
 		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 		<script type="text/javascript">var root = <?php echo "'" . ROOT . "'" ?></script>
 	</head>
-<body class="<?php echo explode('/', $_SERVER['REQUEST_URI'])[2] ?>">
+<body class="<?php echo strtok(explode('/', $_SERVER['REQUEST_URI'])[2], '?') ?>">

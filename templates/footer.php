@@ -4,6 +4,6 @@
 		Copyright 2021 Checkmate	
 		</div>
 	</footer>
-	<?php include 'scripts.php'; ?>
+	<script src="https://kit.fontawesome.com/970adb2e15.js" crossorigin="anonymous"></script>
 </body>
 </html>

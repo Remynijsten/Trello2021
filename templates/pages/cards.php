@@ -15,3 +15,4 @@ if(!$_SESSION['login']){
 	<div class="cards-section"></div>
 	<div class="add_task">Add new task +</div>
 </div>
+<script type="text/javascript" src="<?= './js/card_controller.js' ?>"></script>
