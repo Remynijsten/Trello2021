@@ -8,12 +8,13 @@
 @import "sections/header";
 @import "sections/footer";
 
+@import "blocks/modal";
+
 @import "pages/home";
 @import "pages/register";
 @import "pages/login";
 @import "pages/lists";
-
-@import "blocks/modal";
+@import "pages/cards";
 
 .row, *{
 	margin: 0;
@@ -32,4 +33,8 @@
 	margin: 0 auto;
 	height: 82vh;
 	position: relative;
+}
+
+.button{
+	border: none;
 }

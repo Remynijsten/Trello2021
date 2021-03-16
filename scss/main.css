@@ -96,6 +96,47 @@ footer {
   bottom: 0;
 }
 
+.modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+.modal_body {
+  position: relative;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+.modal_body_close {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  cursor: pointer;
+  font-size: 1.5em;
+}
+.modal_body_logo {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10%;
+  margin: 0 auto;
+}
+.modal_body_message {
+  padding: 50px 100px;
+  height: 100%;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+}
+
 .home {
   box-sizing: border-box;
   margin-bottom: -25px;
@@ -271,6 +312,14 @@ footer {
   background-image: url("../img/CM-BG.png");
   background-size: cover;
 }
+.lists-section {
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 700px;
+  display: inline-flex;
+  width: 1200px;
+  overflow-x: scroll;
+}
 .lists .title {
   display: flex;
   justify-content: space-between;
@@ -285,6 +334,7 @@ footer {
   width: 250px;
   height: 100px;
   margin-bottom: 25px;
+  margin-right: 25px;
   position: relative;
   background: #f3f9f9;
   border-radius: 5px;
@@ -319,7 +369,6 @@ footer {
   cursor: pointer;
 }
 .lists-container-item-controls-color {
-  background-color: blue;
   width: 15px;
   height: 15px;
   border-radius: 100%;
@@ -353,49 +402,24 @@ footer {
 .lists-modal .modal_body_content input[name='title']:focus {
   outline: none;
 }
-.lists-modal .modal_body_content label {
-  display: block;
-}
-.lists-modal .modal_body_content select[name='color'] {
-  display: none;
-}
-.lists-modal .modal_body_content .color-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  height: 50px;
-}
-.lists-modal .modal_body_content .color-list li {
-  display: inline-block;
-}
-.lists-modal .modal_body_content .color-list li .colorpicker {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  transition: 0.3s ease;
-  position: relative;
-}
-.lists-modal .modal_body_content .color-list li .colorpicker:hover {
-  transform: scale(0.9);
-}
-.lists-modal .modal_body_content .color-list li .active:after {
-  display: flex;
-  content: '^';
-  color: white;
-  position: absolute;
-  bottom: -30px;
-  font-size: 25px;
-  left: 0;
-  right: 0;
-  justify-content: center;
-}
-.lists-modal .modal_body_content .addlist-button {
+.lists-modal .modal_body_content button {
   text-align: center;
-  padding: 10px 25px;
-  background-color: #ecba5c;
   color: #1a1a1a;
   border-radius: 5px;
   margin-top: 25px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 50px;
+}
+.lists-modal .modal_body_content .cancel {
+  background-color: grey;
+}
+.lists-modal .modal_body_content .update-list-button {
+  background-color: #ECBA5C;
+}
+.lists-modal .modal_body_content .remove-list-button {
+  background-color: #a54b4b;
+  color: #F3F9F9;
 }
 
 .add_list {
@@ -408,45 +432,119 @@ footer {
   cursor: pointer;
 }
 
-.modal {
-  background-color: rgba(0, 0, 0, 0.5);
+.cards {
+  background-image: url("../img/CM-BG.png");
+  background-size: cover;
+}
+.cards .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #1a1a1a;
+}
+.cards .title span {
+  cursor: pointer;
+}
+.cards-container {
+  width: 250px;
+  height: 100px;
+  margin-bottom: 25px;
+  position: relative;
+  background: #f3f9f9;
+  border-radius: 5px;
+  display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+  padding: 25px;
 }
-.modal_body {
-  position: relative;
-  height: 300px;
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  display: block;
-  margin: 0 auto;
-  border-radius: 10px;
-}
-.modal_body_close {
+.cards-container-item .fa-bars {
+  display: flex;
   position: absolute;
-  top: 10px;
-  right: 25px;
-  cursor: pointer;
-  font-size: 1.5em;
+  flex-direction: column;
+  justify-content: center;
+  bottom: 0;
+  top: 0;
+  left: 10px;
+  cursor: grab;
 }
-.modal_body_logo {
-  width: 150px;
-  height: 150px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.cards-container-item-controls {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  bottom: 0;
+  top: 0;
+  justify-content: space-between;
+  padding: 15px 0px;
+  right: 10px;
+}
+.cards-container-item-controls .fa-ellipsis-h {
+  cursor: pointer;
+}
+.cards-container-item-controls-color {
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.cards-container-menu {
+  width: 100px;
+  height: auto;
+  padding: 10px 5px;
+  background-color: #f3f9f9;
+  border-radius: 5px;
+  position: absolute;
+  right: -105px;
+  top: 0px;
+}
+.cards-modal .modal_body {
+  width: 500px;
+}
+.cards-modal .modal_body_content {
+  padding: 50px;
+}
+.cards-modal .modal_body_content input[name='title'] {
+  width: 100%;
+  border: none;
+  border-bottom: 3px solid grey;
+  margin-bottom: 25px;
+  font-size: 24px;
+  border-radius: 25px;
+  padding-left: 25px;
+}
+.cards-modal .modal_body_content input[name='title']:focus {
+  outline: none;
+}
+.cards-modal .modal_body_content button {
+  text-align: center;
+  color: #1a1a1a;
+  border-radius: 5px;
+  margin-top: 25px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 50px;
+}
+.cards-modal .modal_body_content .cancel {
+  background-color: grey;
+}
+.cards-modal .modal_body_content .update-card-button {
+  background-color: #ECBA5C;
+}
+.cards-modal .modal_body_content .remove-card-button {
+  background-color: #a54b4b;
+  color: #F3F9F9;
+}
+
+.add_card {
   position: absolute;
   left: 0;
-  right: 0;
-  top: 10%;
-  margin: 0 auto;
-}
-.modal_body_message {
-  padding: 50px 100px;
-  height: 100%;
-  margin-top: 50px;
-  display: flex;
-  align-items: center;
+  bottom: 25px;
+  padding: 10px 25px;
+  background-color: #1a1a1a;
+  color: #F3F9F9;
+  cursor: pointer;
 }
 
 .row, * {
@@ -466,6 +564,10 @@ footer {
   margin: 0 auto;
   height: 82vh;
   position: relative;
+}
+
+.button {
+  border: none;
 }
 
 /*# sourceMappingURL=main.css.map */

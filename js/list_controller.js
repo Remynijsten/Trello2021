@@ -1,31 +1,34 @@
-let data = {};
-let cards = [];
-let card_markup = 
-`<div class="lists-container">
+var data 	= {};
+let lists   = [];
+let list_markup =
+`<div class="lists-container animate__animated animate__bounceIn" data-id="%id%">
 	<div class="lists-container-item">
 		<i class="fas fa-bars" aria-hidden="true"></i>
 		<h2 class="lists-container-item-title">%title%</h2>
 		<div class="lists-container-item-controls">
-			<i class="fas fa-ellipsis-h" aria-hidden="true"></i>
-			<span class="lists-container-item-controls-color %color-class%"></span>
+			<i class="fas fa-ellipsis-h openmenu" aria-hidden="true"></i>
+			<i class="fas fa-arrow-circle-right viewlist"></i>
 		</div>
-	</div>
-	<div class='lists-container-menu d-none'>
-		<p class='update_list' data-list-id='%id%'>Update List</p>
-		<p class='remove_list' data-list-id='%id%'>Remove List</p>
 	</div>
 </div>`;
 
 class List{
 	constructor(data){
 		this.title 	= data['title'];
-		this.color 	= data['color'];
-		this.status = data['status'];
-		this.order 	= data['order'];
+		this.id 	= data['id'];
 	}
 
-	update_title() {
-		ajax_request(data, 'update_list', 'model/listmodel.php')
+	remove_list(id) {
+		data 	= {};
+		data.id = this.id;
+		ajax_request(data, 'remove_list', 'model/listmodel.php');
+	}
+
+	update_list(title, id) {
+		data 		= {};
+		data.id 	= this.id;
+		data.title 	= this.title;
+		ajax_request(data, 'update_list', 'model/listmodel.php');		
 	}
 }
 
@@ -44,52 +47,95 @@ function load_cards(data){
 
 	for(let i = 0; i < data.length; i++){
 		// Create class instance
-		cards[i] 	= new List(data[i]);
-		let c 		= card_markup;
+		lists[i] 	= new List(data[i]);
+		let c 		= list_markup;
 		c 			= c.replace('%title%', data[i].title);
-		c 			= c.replace('%color-class%', data[i].color);
-		c 			= c.replace('%id%', data[i].id);
-		c 			= c.replace('%id%', data[i].id);
-		document.querySelector('.main').insertAdjacentHTML( 'beforeend', c );	
+		c 			= c.replace('%id%', i);
+		document.querySelector('.lists-section').insertAdjacentHTML( 'beforeend', c );	
 	}
+
+	/**
+	  * Add onclick events to all edit-list buttons
+	  */
+	document.querySelectorAll('.openmenu').forEach(menu => menu.addEventListener('click', function(){
+
+		// Open modal
+		open_modal('update-list');
+
+		// Change input value to current list title
+		document.querySelector('.update-list-modal input[name="title"]').value = this.closest('.lists-container').querySelector('.lists-container-item-title').innerText;	
+
+		// Add list id data attribute to buttons
+		document.querySelectorAll('.update-list-modal button').forEach(button => button.dataset.id = this.closest('.lists-container').dataset.id);
+	}));
 
 }
 
 get_all_lists();
 
-document.querySelectorAll('.fa-ellipsis-h').forEach(menu => menu.addEventListener('click', function(){
-	this.closest('.lists-container').querySelector('.lists-container-menu').classList.toggle('d-none');
+/**
+  * Cancel button event listener
+  */
+document.querySelector('.cancel').onclick = function(){ document.querySelector('.update-list-modal .modal_body_close').click() }
 
-	// Change modal title to current list title
-	// this.closest('.lists-container').querySelector('.modal_body_content input[name="title"]').value = menu.closest('h2').innerText;
+/**
+  * Update modal button functions
+  */
+document.querySelectorAll('.update-list-modal button').forEach(button => button.addEventListener('click', function(){
 
-	let list_title = menu.closest('.lists-container-item').querySelector('.lists-container-item-title').innerText;
-	document.querySelector('.modal_body_content input[name="title"]').value = list_title;
+	if(button.classList.contains('remove-list-button')){
+		lists[this.dataset.id].remove_list();
+	}
+	else if(button.classList.contains('update-list-button')){
+		lists[this.dataset.id].title = document.querySelector('.update-list-modal input').value;
+		lists[this.dataset.id].update_list();		
+	}
+
+	// Close modal
+	document.querySelector('.cancel').click();
+
+	// Empty wrapper
+	document.querySelector('.lists-section').innerHTML = '';
+
+	// Reload lists
+	get_all_lists();
 
 }));
 
+
 document.querySelector('.add_list').addEventListener('click', function(){
-	document.querySelector('.lists-modal').classList.remove('d-none');
-	document.querySelector('.lists-modal').classList.add('d-block');
+	open_modal('add-list');
 });
 
-Array.from(document.querySelectorAll('.colorpicker')).forEach(color => {
+document.querySelector('.addlist-button').addEventListener('click', function(){
+	let modal_content 	= this.closest('.modal_body_content');
+	data.title 			= modal_content.querySelector('input[name="title"]').value;
+	ajax_request(data, 'add_list', 'model/listmodel.php');
 
-	// dynamically add colors from data-value attribute
-	color.style.backgroundColor = color.dataset.value;
+	// Close modal
+	document.querySelector('.cancel').click();
 
-	color.addEventListener('click', function(){
+	// Empty wrapper
+	document.querySelector('.lists-section').innerHTML = '';
 
-		// toggle active class on selected colorpicker div
-		document.querySelectorAll('.colorpicker').forEach(color => color.classList.remove('active'))
-		this.classList.add('active');
-
-		// add colorbox value to select value
-		document.querySelector('select[name="color"]').value = this.dataset.value;
-	})
+	// Reload lists
+	get_all_lists();
 });
 
 
+document.querySelectorAll('.viewlist').forEach(list => list.addEventListener('click', function(){
+	let id = lists[this.closest('.lists-container').dataset.id].id;
+	window.location.href = '//' + root_url + 'cards?list=' + id;
+}));
 
+function open_modal(name){
+	let modal = document.querySelector(`.${name}-modal`);
 
-
+	if( modal.classList.contains('d-none') ){
+		modal.classList.remove('d-none');
+		modal.classList.add('d-flex');
+	} else {
+		modal.classList.add('d-none');
+		modal.classList.remove('d-flex');		
+	}
+}

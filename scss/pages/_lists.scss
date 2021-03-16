@@ -1,6 +1,14 @@
 .lists{
 	background-image: url('../img/CM-BG.png');
 	background-size: cover;
+	&-section{
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 700px;
+    display: inline-flex;
+    width: 1200px;
+    overflow-x: scroll;
+	}
 	.title{
 		display: flex;
 		justify-content: space-between;
@@ -15,6 +23,7 @@
 		width: 250px;
 		height: 100px;
 		margin-bottom: 25px;
+		margin-right: 25px;
 		position: relative;
 		background: #f3f9f9;
 		border-radius: 5px;
@@ -38,7 +47,6 @@
 					cursor: pointer;
 				}
 				&-color{
-					background-color: blue;
 					width: 15px;
 					height: 15px;
 					border-radius: 100%;
@@ -74,52 +82,24 @@
 						outline: none;
 					}
 				}
-				label{
-					display: block;
-				}
-				select[name='color']{
-					display: none;
-				}
-				.color-list{
-					list-style: none;
-					margin: 0;
-					padding: 0;
-					height: 50px;
-					li{
-						display: inline-block;
-						.colorpicker{
-							width: 25px;
-							height: 25px;
-							cursor: pointer;
-							transition: 0.3s ease;
-							position: relative;
-							&:hover{
-								transform: scale(0.9);
-							}
-						}
-						.active{
-							&:after{
-								display: flex;
-								content: '^';
-								color: white;
-								position: absolute;
-								bottom: -30px;
-								font-size: 25px;
-								left: 0;
-								right: 0;
-								justify-content: center;
-
-							}
-						}						
-					}
-				}
-				.addlist-button{
+				button{
 					text-align: center;
-					padding: 10px 25px;
-					background-color: #ecba5c;
 					color: #1a1a1a;
 					border-radius: 5px;
 					margin-top: 25px;
+					width: 100%;
+					padding: 10px;
+					border-radius: 50px;
+				}
+				.cancel{
+					background-color: grey;
+				}
+				.update-list-button{
+					background-color: $yellow;
+				}
+				.remove-list-button{
+					background-color: #a54b4b;
+					color: $light-text;
 				}
 			}
 		}

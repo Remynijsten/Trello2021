@@ -21,13 +21,13 @@ function display_message(data){
 	modal.querySelector('.modal_body_message').innerText = message;
 }
 
-document.querySelector('.modal_body_close').onclick = function(){
-	let modal = document.querySelector('.modal');
+document.querySelectorAll('.modal_body_close').forEach(closebtn => closebtn.addEventListener('click', function(){
+	let modal = this.closest('.modal');
 
 	modal.classList.remove('d-flex');
 	modal.classList.remove('d-block');
 	modal.classList.add('d-none');
-}
+}));
 
 function ajax_request(data, server_function, model){
 	data.function = server_function;
