@@ -2,7 +2,7 @@ var data 			= {};
 let cards   		= [];
 
 let card_markup 	=
-`<div class="card-container" data-id="%id%">
+`<div class="card-container animate__animated animate__bounceIn" data-id="%id%" >
 	<div class="card-container-header">
 		<h1 class="card-container-header-title">%title%</h1>
 		<span class="card-container-header-menu"><i class="fas fa-ellipsis-h openmenu" aria-hidden="true"></i></span>
@@ -34,9 +34,9 @@ class Card{
 /**
   * Sends post request to the server to receive list rows
   */
-function get_all_cards(){
+function get_all_cards(sort){
 	data.id = list_id;
-	load_cards(ajax_request(data, 'get_all_cards', 'model/cardmodel.php'), 'id');
+	load_cards(ajax_request(data, 'get_all_cards', 'model/cardmodel.php'), sort);
 }
 
 /**
@@ -84,5 +84,24 @@ function load_cards(data, sort){
 
 }
 
-get_all_cards();
+get_all_cards('id');
+
+document.querySelector('.sorting-menu').addEventListener('click', function(){
+	this.querySelector('.sorting-menu-container').classList.toggle('d-none');
+});
+
+document.querySelectorAll('.sorting-menu-container p').forEach(option => option.addEventListener('click', function(){
+	// Empty card container
+	document.querySelector('.cards-section').innerHTML = '';
+
+	// Load new cards
+	get_all_cards(option.dataset.sort);
+}))
+
+
+
+
+
+
+
 

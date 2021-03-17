@@ -39,10 +39,10 @@ if(isset($function)){
 function get_all_tasks($id, $sort){
 	global $conn;
 
-	$stmt = $conn->prepare('SELECT * FROM `tasks` WHERE user=:user AND card=:card ORDER BY :sort_option DESC');
+	$stmt = $conn->prepare('SELECT * FROM `tasks` WHERE user=:user AND card=:card ORDER BY '.$sort.' DESC');
 	$stmt->bindParam(':user', $_SESSION['user_id']);
 	$stmt->bindParam(':card', $id);
-	$stmt->bindParam(':sort_option', $sort);
+	// $stmt->bindParam(':sorting', $sort);
 	$stmt->execute();
 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

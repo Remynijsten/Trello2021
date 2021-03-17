@@ -432,6 +432,19 @@ footer {
   cursor: pointer;
 }
 
+.sorting-menu {
+  position: relative;
+}
+.sorting-menu-container {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  padding: 10px;
+  text-align: right;
+  width: 200px;
+}
+
 .cards {
   background-image: url("../img/CM-BG.png");
   background-size: cover;
