@@ -15,7 +15,7 @@ if(isset($function)){
 
 	switch ($function) {
 		case 'get_all_cards':
-			print_r(json_encode(get_all_cards($list)));
+			print_r(json_encode(get_all_cards($id)));
 			break;
 
 		case 'add_card':
@@ -36,12 +36,12 @@ if(isset($function)){
 	}	
 }
 
-function get_all_cards($list){
+function get_all_cards($id){
 	global $conn;
 
 	$stmt = $conn->prepare('SELECT * FROM `cards` WHERE user=:user AND list=:list');
 	$stmt->bindParam(':user', $_SESSION['user_id']);
-	$stmt->bindParam(':list', $list);
+	$stmt->bindParam(':list', $id);
 	$stmt->execute();
 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

@@ -11,86 +11,53 @@
 			cursor: pointer;
 		}
 	}
-	&-container{
-		width: 250px;
-		height: 100px;
-		margin-bottom: 25px;
-		position: relative;
-		background: #f3f9f9;
-		border-radius: 5px;
+	&-section{
 		display: flex;
-		justify-content: center;
-		align-items: center;
-		box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
-		padding: 25px;
-		&-item{
-			.fa-bars{
-				@include pos_absolute;
-				left: 10px;
-				cursor: grab;
-			}
-			&-controls{
-				@include pos_absolute;
-				justify-content: space-between;
-				padding: 15px 0px;
-				right: 10px;
-				.fa-ellipsis-h{
-					cursor: pointer;
-				}
-				&-color{
-					width: 15px;
-					height: 15px;
-					border-radius: 100%;
-					cursor: pointer;
-				}			
-			}
-		}	
-		&-menu{
-			width: 100px;
-			height: auto;
-			padding: 10px 5px;
-			background-color: #f3f9f9;
+		.card-container{
+			padding: 25px 25px 100px 25px;
+			background-color: #EDEDED;
 			border-radius: 5px;
-			position: absolute;
-			right: -105px;
-			top: 0px;
-		}	
-	}
-	&-modal{
-		.modal_body{
-			width: 500px;
-			&_content{
-				padding: 50px;
-				input[name='title']{
-					width: 100%;
-					border: none;
-					border-bottom: 3px solid grey;
-					margin-bottom: 25px;
+			height: fit-content;
+			min-height: 100px;
+			width: 300px;
+			margin-right: 25px;
+			&-header{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			    padding: 10px;
+				&-title{
 					font-size: 24px;
-					border-radius: 25px;
-					padding-left: 25px;
-					&:focus{
-						outline: none;
+				}
+				&-menu{
+
+				}
+			}
+			.task-container{
+				width: 100%;
+				padding: 25px;
+				background-color: white;
+				border-radius: 10px;
+				position: relative;
+				border: 1px solid #1A1A1A;
+				&-controls{
+					position: absolute;
+					right: 10px;
+					top: 0;
+					height: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-around;
+					align-items: center;
+					&-menu{
+
 					}
-				}
-				button{
-					text-align: center;
-					color: #1a1a1a;
-					border-radius: 5px;
-					margin-top: 25px;
-					width: 100%;
-					padding: 10px;
-					border-radius: 50px;
-				}
-				.cancel{
-					background-color: grey;
-				}
-				.update-card-button{
-					background-color: $yellow;
-				}
-				.remove-card-button{
-					background-color: #a54b4b;
-					color: $light-text;
+					&-color{
+						width: 10px;
+						height: 10px;
+						background-color: blue;
+						border-radius: 10px;
+					}
 				}
 			}
 		}

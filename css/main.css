@@ -446,95 +446,50 @@ footer {
 .cards .title span {
   cursor: pointer;
 }
-.cards-container {
-  width: 250px;
-  height: 100px;
-  margin-bottom: 25px;
-  position: relative;
-  background: #f3f9f9;
+.cards-section {
+  display: flex;
+}
+.cards-section .card-container {
+  padding: 25px 25px 100px 25px;
+  background-color: #EDEDED;
   border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
-  padding: 25px;
+  height: fit-content;
+  min-height: 100px;
+  width: 300px;
+  margin-right: 25px;
 }
-.cards-container-item .fa-bars {
+.cards-section .card-container-header {
   display: flex;
-  position: absolute;
-  flex-direction: column;
-  justify-content: center;
-  bottom: 0;
-  top: 0;
-  left: 10px;
-  cursor: grab;
-}
-.cards-container-item-controls {
-  display: flex;
-  position: absolute;
-  flex-direction: column;
-  justify-content: center;
-  bottom: 0;
-  top: 0;
   justify-content: space-between;
-  padding: 15px 0px;
-  right: 10px;
-}
-.cards-container-item-controls .fa-ellipsis-h {
-  cursor: pointer;
-}
-.cards-container-item-controls-color {
-  width: 15px;
-  height: 15px;
-  border-radius: 100%;
-  cursor: pointer;
-}
-.cards-container-menu {
-  width: 100px;
-  height: auto;
-  padding: 10px 5px;
-  background-color: #f3f9f9;
-  border-radius: 5px;
-  position: absolute;
-  right: -105px;
-  top: 0px;
-}
-.cards-modal .modal_body {
-  width: 500px;
-}
-.cards-modal .modal_body_content {
-  padding: 50px;
-}
-.cards-modal .modal_body_content input[name='title'] {
-  width: 100%;
-  border: none;
-  border-bottom: 3px solid grey;
-  margin-bottom: 25px;
-  font-size: 24px;
-  border-radius: 25px;
-  padding-left: 25px;
-}
-.cards-modal .modal_body_content input[name='title']:focus {
-  outline: none;
-}
-.cards-modal .modal_body_content button {
-  text-align: center;
-  color: #1a1a1a;
-  border-radius: 5px;
-  margin-top: 25px;
-  width: 100%;
+  align-items: center;
   padding: 10px;
-  border-radius: 50px;
 }
-.cards-modal .modal_body_content .cancel {
-  background-color: grey;
+.cards-section .card-container-header-title {
+  font-size: 24px;
 }
-.cards-modal .modal_body_content .update-card-button {
-  background-color: #ECBA5C;
+.cards-section .card-container .task-container {
+  width: 100%;
+  padding: 25px;
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+  border: 1px solid #1A1A1A;
 }
-.cards-modal .modal_body_content .remove-card-button {
-  background-color: #a54b4b;
-  color: #F3F9F9;
+.cards-section .card-container .task-container-controls {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.cards-section .card-container .task-container-controls-color {
+  width: 10px;
+  height: 10px;
+  background-color: blue;
+  border-radius: 10px;
 }
 
 .add_card {
