@@ -19,7 +19,7 @@ if(isset($function)){
 			break;
 
 		case 'add_card':
-			print_r(json_encode(add_card($title)));
+			print_r(json_encode(add_card($title, $list)));
 			break;
 
 		case 'remove_card':
@@ -27,7 +27,7 @@ if(isset($function)){
 			break;
 
 		case 'update_card':
-			print_r(json_encode(update_card($title, $status, $id)));
+			print_r(json_encode(update_card($title, $id)));
 			break;
 		
 		default:
@@ -46,14 +46,30 @@ function get_all_cards($id){
 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function add_card($title){
+function add_card($title, $list){
+	global $conn;
+
+	$stmt = $conn->prepare('INSERT INTO `cards` (user, title, list) VALUES (:user, :title, :list)');
+	$stmt->bindParam(':user', $_SESSION['user_id']);
+	$stmt->bindParam(':title', $title);
+	$stmt->bindParam(':list', $list);
+	$stmt->execute();
 
 }
 
 function remove_card($id){
+	global $conn;
 
+	$stmt = $conn->prepare('DELETE FROM `cards` WHERE id=:id');
+	$stmt->bindParam(':id', $id);
+	$stmt->execute();
 }
 
-function update_card($title, $status, $id){
-	
+function update_card($title, $id){
+	global $conn;
+
+	$stmt = $conn->prepare('UPDATE `cards` SET title=:title WHERE id=:id');
+	$stmt->bindParam(':title', $title);
+	$stmt->bindParam(':id', $id);
+	$stmt->execute();	
 }

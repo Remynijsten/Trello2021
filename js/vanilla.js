@@ -1,3 +1,8 @@
+// Bind shorthand functions for queryselectors
+$  = document.querySelector.bind(document)
+$$ = document.querySelectorAll.bind(document)
+Node.prototype.on = Node.prototype.addEventListener;
+
 function display_message(data){
 	let message = data[0];
 	let mode 	= data[1];
@@ -21,14 +26,6 @@ function display_message(data){
 	modal.querySelector('.modal_body_message').innerText = message;
 }
 
-document.querySelectorAll('.modal_body_close').forEach(closebtn => closebtn.addEventListener('click', function(){
-	let modal = this.closest('.modal');
-
-	modal.classList.remove('d-flex');
-	modal.classList.remove('d-block');
-	modal.classList.add('d-none');
-}));
-
 function ajax_request(data, server_function, model){
 	data.function = server_function;
 
@@ -39,3 +36,20 @@ function ajax_request(data, server_function, model){
 	
 	return response;
 }
+
+function toggle_modal(element){
+	switch(true) {
+		case element.classList.contains('d-none'):
+			element.classList.remove('d-none');
+			element.classList.add('d-flex');
+			break;
+		case element.classList.contains('d-flex'):
+			element.classList.remove('d-flex');
+			element.classList.add('d-none');
+			break;
+	}
+}
+
+document.querySelectorAll('.modal_body_close').forEach(close => close.addEventListener('click', function(){
+	toggle_modal(this.closest('.modal'));
+}))

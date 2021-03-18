@@ -51,25 +51,25 @@ function load_cards(data){
 		let c 		= list_markup;
 		c 			= c.replace('%title%', data[i].title);
 		c 			= c.replace('%id%', i);
-		document.querySelector('.lists-section').insertAdjacentHTML( 'beforeend', c );	
+		$('.lists-section').insertAdjacentHTML( 'beforeend', c );	
 	}
 
 	/**
 	  * Add onclick events to all edit-list buttons
 	  */
-	document.querySelectorAll('.openmenu').forEach(menu => menu.addEventListener('click', function(){
+	$$('.openmenu').forEach(menu => menu.on('click', function(){
 
 		// Open modal
-		open_modal('update-list');
+		toggle_modal($('.update-list-modal'));
 
 		// Change input value to current list title
-		document.querySelector('.update-list-modal input[name="title"]').value = this.closest('.lists-container').querySelector('.lists-container-item-title').innerText;	
+		$('.update-list-modal input[name="title"]').value = this.closest('.lists-container').querySelector('.lists-container-item-title').innerText;	
 
 		// Add list id data attribute to buttons
-		document.querySelectorAll('.update-list-modal button').forEach(button => button.dataset.id = this.closest('.lists-container').dataset.id);
+		$$('.update-list-modal button').forEach(button => button.dataset.id = this.closest('.lists-container').dataset.id);
 	}));
 
-	document.querySelectorAll('.viewlist').forEach(list => list.addEventListener('click', function(){
+	$$('.viewlist').forEach(list => list.on('click', function(){
 		let id = lists[this.closest('.lists-container').dataset.id].id;
 		window.location.href = '//' + root_url + 'cards?list=' + id;
 	}));
@@ -81,7 +81,7 @@ get_all_lists();
 /**
   * Cancel button event listener
   */
-document.querySelector('.cancel').onclick = function(){ 
+$('.cancel').onclick = function(){ 
 	this.closest('.modal').classList.remove('d-flex');
 	this.closest('.modal').classList.add('d-none');
 }
@@ -89,56 +89,41 @@ document.querySelector('.cancel').onclick = function(){
 /**
   * Update modal button functions
   */
-document.querySelectorAll('.update-list-modal button').forEach(button => button.addEventListener('click', function(){
+$$('.modal_body_content .row button').forEach(button => button.on('click', function(){
 
-	if(button.classList.contains('remove-list-button')){
+	if(button.classList.contains('remove')){
 		lists[this.dataset.id].remove_list();
 	}
-	else if(button.classList.contains('update-list-button')){
-		lists[this.dataset.id].title = document.querySelector('.update-list-modal input').value;
+	else if(button.classList.contains('update')){
+		lists[this.dataset.id].title = $('.update-list-modal input').value;
 		lists[this.dataset.id].update_list();		
 	}
 
 	// Close modal
-	document.querySelector('.cancel').click();
+	toggle_modal(this.closest('.modal'));
 
 	// Empty wrapper
-	document.querySelector('.lists-section').innerHTML = '';
+	$('.lists-section').innerHTML = '';
 
 	// Reload lists
 	get_all_lists();
 
 }));
 
-
-document.querySelector('.add_list').addEventListener('click', function(){
-	open_modal('add-list');
+$('.add_list').on('click', function(){
+	toggle_modal($('.add-list-modal'));
 });
 
-document.querySelector('.addlist-button').addEventListener('click', function(){
+$('.addlist-button').on('click', function(){
 	let modal_content 	= this.closest('.modal_body_content');
 	data.title 			= modal_content.querySelector('input[name="title"]').value;
 	ajax_request(data, 'add_list', 'model/listmodel.php');
 
-	// Close modal
-	document.querySelector('.cancel').click();
+	toggle_modal(this.closest('.modal'));
 
 	// Empty wrapper
-	document.querySelector('.lists-section').innerHTML = '';
+	$('.lists-section').innerHTML = '';
 
 	// Reload lists
 	get_all_lists();
 });
-
-
-function open_modal(name){
-	let modal = document.querySelector(`.${name}-modal`);
-
-	if( modal.classList.contains('d-none') ){
-		modal.classList.remove('d-none');
-		modal.classList.add('d-flex');
-	} else {
-		modal.classList.add('d-none');
-		modal.classList.remove('d-flex');		
-	}
-}

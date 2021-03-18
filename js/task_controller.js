@@ -7,7 +7,6 @@ let task_markup 	=
 	<p class="task-container-description">%desc%</p>
 	<div class="task-container-controls">
 		<span class="task-container-controls-menu"><i class="fas fa-ellipsis-h" aria-hidden="true"></i></span>
-		<span class="task-container-controls-color"></span>
 	</div>
 </div>`;
 

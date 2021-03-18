@@ -1,5 +1,5 @@
-const lottie = document.querySelector('lottie-player');
-const user_form = document.querySelector('.user-form');
+const lottie = $('lottie-player');
+const user_form = $('.user-form');
 
 user_form.addEventListener('submit', function(e){
 	e.preventDefault();

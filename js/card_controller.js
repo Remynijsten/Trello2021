@@ -2,10 +2,10 @@ var data 			= {};
 let cards   		= [];
 
 let card_markup 	=
-`<div class="card-container animate__animated animate__bounceIn" data-id="%id%" >
+`<div class="card-container animate__animated animate__bounceIn" data-id="%id%" data-index=%index%>
 	<div class="card-container-header">
 		<h1 class="card-container-header-title">%title%</h1>
-		<span class="card-container-header-menu"><i class="fas fa-ellipsis-h openmenu" aria-hidden="true"></i></span>
+		<span class="card-container-header-menu"><i class="fas fa-ellipsis-h open-card-menu" aria-hidden="true"></i></span>
 	</div>
 	
 	<div class="tasks-section"></div>
@@ -23,7 +23,7 @@ class Card{
 		ajax_request(data, 'remove_card', 'model/cardmodel.php');
 	}
 
-	update_card(title, id) {
+	update_card() {
 		data 		= {};
 		data.id 	= this.id;
 		data.title 	= this.title;
@@ -51,6 +51,8 @@ function load_cards(data, sort){
 		let c 		= card_markup;
 		c 			= c.replace('%title%', data[i].title);
 		c 			= c.replace('%id%', data[i].id);
+		c 			= c.replace('%index%', i);
+
 		
 		// Append card markup to wrapper
 		document.querySelector('.cards-section').insertAdjacentHTML( 'beforeend', c );
@@ -70,7 +72,7 @@ function load_cards(data, sort){
 				return e.dataset.id == task.card
 			});
 
-			// Append to correct card element
+			// Append DOMString to correct card element
 			parent_card[0].insertAdjacentHTML( 'beforeend', t );
 		});
 
@@ -79,29 +81,76 @@ function load_cards(data, sort){
 	/**
 	  * Add onclick events to all edit-list buttons
 	  */
-	// document.querySelectorAll('.openmenu').forEach(menu => menu.addEventListener('click', function(){
-	// }));
+	$$('.open-card-menu').forEach(menu => menu.on('click', function(){
+		toggle_modal($('.update-card-modal'));
+
+		// Change input value to current list title
+		$('.update-card-modal input[name="title"]').value = this.closest('.card-container').querySelector('.card-container-header-title').innerText;	
+
+
+		$$('.update-card-modal button').forEach(button => button.dataset.index = this.closest('.card-container').dataset.index);
+	}));
 
 }
 
 get_all_cards('id');
 
-document.querySelector('.sorting-menu').addEventListener('click', function(){
+$('.sorting-menu').on('click', function(){
 	this.querySelector('.sorting-menu-container').classList.toggle('d-none');
 });
 
-document.querySelectorAll('.sorting-menu-container p').forEach(option => option.addEventListener('click', function(){
+$$('.sorting-menu-container p').forEach(option => option.on('click', function(){
 	// Empty card container
-	document.querySelector('.cards-section').innerHTML = '';
+	$('.cards-section').innerHTML = '';
 
 	// Load new cards
 	get_all_cards(option.dataset.sort);
 }))
 
+$('.add_card').on('click', function(){
+	toggle_modal($('.add-card-modal'));
+});
 
+$('.addcard-button').on('click', function(){
+	let modal_content 	= this.closest('.modal_body_content');
+	data.title 			= modal_content.querySelector('input[name="title"]').value;
+	data.list 			= list_id;
+	ajax_request(data, 'add_card', 'model/cardmodel.php');
 
+	toggle_modal(this.closest('.modal'));
 
+	// Empty wrapper
+	$('.cards-section').innerHTML = '';
 
+	// Reload lists
+	get_all_cards('id');
+})
 
+$('.update-card').on('click', function(){
+	cards[this.dataset.index].title = $('.update-card-modal input[name="title"]').value;
 
+	cards[this.dataset.index].update_card();
 
+	toggle_modal(this.closest('.modal'));
+
+	// Empty wrapper
+	$('.cards-section').innerHTML = '';
+
+	// Reload lists
+	get_all_cards('id');
+
+});
+
+$('.remove-card').on('click', function(){
+
+	cards[this.dataset.index].remove_card();
+
+	toggle_modal(this.closest('.modal'));
+
+	// Empty wrapper
+	$('.cards-section').innerHTML = '';
+
+	// Reload lists
+	get_all_cards('id');
+
+});

@@ -44,3 +44,56 @@
 	    }
     }
 }
+
+.lists, .cards, .tasks{
+	.modal_body{
+		width: 500px;
+		&_content{
+			padding: 50px;
+			input[name='title']{
+				width: 100%;
+				border: none;
+				border-bottom: 3px solid grey;
+				margin-bottom: 25px;
+				font-size: 24px;
+				border-radius: 25px;
+				padding-left: 25px;
+				&:focus{
+					outline: none;
+				}
+			}
+			select{
+				display: none;
+			}
+			button{
+				text-align: center;
+				color: #1a1a1a;
+				border-radius: 5px;
+				margin-top: 25px;
+				width: 100%;
+				padding: 10px;
+				border-radius: 50px;
+				font-size: 0.9em;
+			}
+			.cancel{
+				background-color: grey;
+			}
+			.update{
+				background-color: $yellow;
+			}
+			.remove{
+				background-color: #a54b4b;
+				color: $light-text;
+			}
+		}
+	}
+}
+
+.colorpicker{
+	.color{
+		width: 25px;
+		height: 25px;
+		margin-right: 10px;
+		border-radius: 5px;
+	}
+}

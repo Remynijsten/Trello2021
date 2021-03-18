@@ -25,5 +25,9 @@ if(!$_SESSION['login']){
 	<div class='add_card'>Add new card +</div>
 	</div>
 </div>
+<?php 
+include(ROOT . 'templates/blocks/add-card-modal.php');
+include(ROOT . 'templates/blocks/update-card-modal.php');
+?>
 <script type="text/javascript" src="<?= './js/task_controller.js' ?>"></script>
 <script type="text/javascript" src="<?= './js/card_controller.js' ?>"></script>
