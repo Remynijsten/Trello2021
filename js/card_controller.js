@@ -62,10 +62,13 @@ function load_cards(data, sort){
 
 		// Receive task data per card and append to card container 
 		get_all_tasks(data[i].id, sort).forEach(task => {
+			tasks[i]= new Task(task);
 			let t 	= task_markup;
 			t 		= t.replace('%title%', 			task.title);
 			t 		= t.replace('%card%',  			task.card);
 			t 		= t.replace('%desc%',  	task.description);
+			t 		= t.replace('%duration%',  	task.duration);
+			t 		= t.replace('%status%',  	task.status);
 
 			// Filter card element to append to by comparing task->list to card id
 			parent_card = Array.from(card_elements).filter(e => {
@@ -75,7 +78,6 @@ function load_cards(data, sort){
 			// Append DOMString to correct card element
 			parent_card[0].insertAdjacentHTML( 'beforeend', t );
 		});
-
 	}
 
 	/**
@@ -90,6 +92,31 @@ function load_cards(data, sort){
 
 		$$('.update-card-modal button').forEach(button => button.dataset.index = this.closest('.card-container').dataset.index);
 	}));
+
+	$$('.task-container-controls').forEach(menu => menu.on('click', function(){
+		toggle_modal($('.update-task-modal'));
+
+		// Set modal title
+		$('.update-task-modal input[name="title"]').value = this.closest('.task-container').querySelector('.task-container-title').innerText;
+
+		// Set modal description
+		$('.update-task-modal textarea').value = this.closest('.task-container').querySelector('.task-container-description').innerText;
+
+		// Set modal duration
+		$('.update-task-modal input[name="duration"]').value = this.closest('.task-container').querySelector('.duration').innerText;
+
+		// Set modal status
+		$('.update-task-modal select').value = this.closest('.task-container').querySelector('.status').innerText;
+
+		// Add task id to buttons
+		$$('.update-task-modal button').forEach(button => {
+			this.dataset.id = tasks[[...$$('.task-container')].indexOf(menu.closest('.task-container'))].id;
+			// console.log(tasks[[...$$('.task-container')].indexOf(menu.closest('.task-container'))]);
+		})
+
+	}));
+
+
 
 }
 

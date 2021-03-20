@@ -1,6 +1,5 @@
 <?php
 // If the user is not logged in, render the home page.
-
 if(!$_SESSION['login']){
 	header("Location:" . ROOT . "home");
 	exit();
@@ -12,10 +11,10 @@ if(!$_SESSION['login']){
 		<h1>My Lists</h1>
 	</div>
 	<div class="lists-section"></div>
-	<div class="add_list">Add new list +</div>
+	<div class="create-button" data-body='lists'>Add new list +</div>
 </div>
 <?php
-include(ROOT . 'templates/blocks/add-list-modal.php');
-include(ROOT . 'templates/blocks/update-list-modal.php');
+include(ROOT . 'templates/blocks/add-modal.php');
+include(ROOT . 'templates/blocks/update-modal.php');
 ?>
-<script type="text/javascript" src="<?= './js/list_controller.js' ?>"></script>
+<script type="module" src="js/main.js"></script>

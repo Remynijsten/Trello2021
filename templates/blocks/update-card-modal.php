@@ -13,6 +13,6 @@
                 <div class="col-4"><button class="remove remove-card">Remove card</button></div>
                 <div class="col-4"><button class="update update-card">Update card</button></div>
             </div>
-        </div>           
+        </div>
     </div>
 </div>

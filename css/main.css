@@ -155,8 +155,22 @@ footer {
 .lists .modal_body_content input[name='title']:focus, .cards .modal_body_content input[name='title']:focus, .tasks .modal_body_content input[name='title']:focus {
   outline: none;
 }
-.lists .modal_body_content select, .cards .modal_body_content select, .tasks .modal_body_content select {
-  display: none;
+.lists .modal_body_content input, .lists .modal_body_content select, .cards .modal_body_content input, .cards .modal_body_content select, .tasks .modal_body_content input, .tasks .modal_body_content select {
+  width: 100%;
+  margin-bottom: 25px;
+  height: 50px;
+  border-radius: 25px;
+  font-size: 24px;
+  padding-left: 25px;
+  color: grey;
+}
+.lists .modal_body_content textarea, .cards .modal_body_content textarea, .tasks .modal_body_content textarea {
+  width: 100%;
+  min-height: 100px;
+  font-size: 1.5em;
+  padding-left: 25px;
+  border-radius: 15px;
+  margin-bottom: 25px;
 }
 .lists .modal_body_content button, .cards .modal_body_content button, .tasks .modal_body_content button {
   text-align: center;
@@ -177,6 +191,14 @@ footer {
 .lists .modal_body_content .remove, .cards .modal_body_content .remove, .tasks .modal_body_content .remove {
   background-color: #a54b4b;
   color: #F3F9F9;
+}
+
+.lists .add-modal select, .lists .add-modal textarea, .lists .add-modal input[name="duration"], .cards .add-modal select, .cards .add-modal textarea, .cards .add-modal input[name="duration"] {
+  display: none;
+}
+
+.lists .update-modal select, .lists .update-modal textarea, .lists .update-modal input[name="duration"], .cards .update-modal select, .cards .update-modal textarea, .cards .update-modal input[name="duration"] {
+  display: none;
 }
 
 .colorpicker .color {
@@ -457,10 +479,6 @@ footer {
   width: 200px;
 }
 
-.cards {
-  background-image: url("../img/CM-BG.png");
-  background-size: cover;
-}
 .cards .title {
   display: flex;
   justify-content: space-between;
@@ -473,6 +491,9 @@ footer {
 }
 .cards-section {
   display: flex;
+  max-width: 1200px;
+  height: 500px;
+  overflow-x: scroll;
 }
 .cards-section .card-container {
   padding: 25px 25px 100px 25px;
@@ -480,7 +501,7 @@ footer {
   border-radius: 5px;
   height: fit-content;
   min-height: 100px;
-  width: 300px;
+  min-width: 300px;
   margin-right: 25px;
 }
 .cards-section .card-container-header {
@@ -527,10 +548,38 @@ footer {
   cursor: pointer;
 }
 
+.task-container-description {
+  font-size: 14px;
+}
+.task-container .task-info-wrapper div {
+  display: flex;
+  padding: 0;
+}
+.task-container .task-info-wrapper div i {
+  color: #ECBA5C;
+  margin-right: 5px;
+  display: flex;
+  align-self: center;
+}
+.task-container .task-info-wrapper div p {
+  margin: 0;
+  display: flex;
+  align-self: center;
+}
+
+body {
+  background-image: url("../img/CM-BG.png");
+  background-size: cover;
+}
+
 .row, * {
   margin: 0;
   padding: 0;
   font-family: 'Niramit', sans-serif;
+}
+
+p {
+  margin: 0;
 }
 
 .container {

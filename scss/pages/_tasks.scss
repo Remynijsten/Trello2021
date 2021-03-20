@@ -1,0 +1,28 @@
+.task-container{
+	&-description{
+		font-size: 14px;
+	}
+	.task-info-wrapper{
+		div{
+		display: flex;
+		padding: 0;
+			i{
+				color: $yellow;
+				margin-right: 5px;
+			    display: flex;
+			    align-self: center;
+			}
+			p{
+				margin: 0;
+			    display: flex;
+			    align-self: center;
+			}
+		}
+	}	
+}
+
+
+
+
+
+

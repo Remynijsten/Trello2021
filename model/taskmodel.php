@@ -27,7 +27,7 @@ if(isset($function)){
 			break;
 
 		case 'update_task':
-			print_r(json_encode(update_task($title, $status, $id)));
+			print_r(json_encode(update_task($title, $status, $description, $duration, $id)));
 			break;
 		
 		default:
@@ -42,7 +42,6 @@ function get_all_tasks($id, $sort){
 	$stmt = $conn->prepare('SELECT * FROM `tasks` WHERE user=:user AND card=:card ORDER BY '.$sort.' DESC');
 	$stmt->bindParam(':user', $_SESSION['user_id']);
 	$stmt->bindParam(':card', $id);
-	// $stmt->bindParam(':sorting', $sort);
 	$stmt->execute();
 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -55,6 +54,14 @@ function remove_task($id){
 
 }
 
-function update_task($title, $status, $id){
-	
+function update_task($title, $status, $description, $duration, $id){
+	global $conn;
+
+	$stmt = $conn->prepare('UPDATE `tasks` SET title=:title, duration=:duration, status=:status, description=:description WHERE id=:id');
+	$stmt->bindParam(':title', $title);
+	$stmt->bindParam(':status', $status);
+	$stmt->bindParam(':description', $description);
+	$stmt->bindParam(':duration', $duration);
+	$stmt->bindParam(':id', $id);
+	$stmt->execute();	
 }

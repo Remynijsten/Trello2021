@@ -19,7 +19,7 @@ if(isset($function)){
 			break;
 
 		case 'add_card':
-			print_r(json_encode(add_card($title, $list)));
+			print_r(json_encode(add_card($title, $link)));
 			break;
 
 		case 'remove_card':
