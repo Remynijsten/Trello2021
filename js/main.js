@@ -7,9 +7,12 @@ function check_body_class(classname){
 	return response;
 }
 
-function load_content(){
+function load_content(sort){
 	switch(true) {
 		case check_body_class('lists'):
+			//Clear Wrapper container
+			$('.lists-section').innerHTML = '';
+
 			// Instantiate new object from List class, Replace content from html string, Append list to container
 			ajax_request(data, 'get_all_lists', 'model/listmodel.php').forEach( function(data, i) {
 				lists[i] 	= new List(data);
@@ -27,9 +30,12 @@ function load_content(){
 			break;
 
 		case check_body_class('cards'):
+			$('.cards-section').innerHTML = '';
+			console.log('leegmaken');
 			// Instantiate new object from Card class, Replace content from html string, Append list to container
 			data.id = list_id;
 			ajax_request(data, 'get_all_cards', 'model/cardmodel.php').forEach( function(data, i) {
+				console.log(data);
 				cards[i] 	= new Card(data);
 				let c 		= card_markup;
 				c 			= c.replace('%title%', data.title);
@@ -48,7 +54,7 @@ function load_content(){
 					tasks[tasks.length] 	= new Task(task);
 					let t 					= task_markup;
 					t 						= t.replace('%title%', 			task.title);
-					t 						= t.replace('%id%',  			i);
+					t 						= t.replace('%id%',  			tasks.length - 1);
 					t 						= t.replace('%desc%',  	task.description);
 					t 						= t.replace('%duration%',  	task.duration);
 					t 						= t.replace('%status%',  	task.status);
@@ -62,7 +68,11 @@ function load_content(){
 					parent_card[0].insertAdjacentHTML( 'beforeend', t );
 				});
 			});
-			break;
+		break;
+
+		case check_body_class('tasks'):
+			console.log('dit is sowieso het probleem');
+		break;
 	}
 }
 
@@ -70,18 +80,24 @@ function close_modal_reload(modal){
 
 	// If parameter is not of type DOM element, target Element instead of event.
 	modal instanceof Element ? '' : modal = modal.target;
+	
+	if(bodyclass == 'tasks'){
+		bodyclass 			= 'cards';
+		$('body').className = 'cards';
+	}
 
 	// Empty HTML wrapper
-	$(`.${bodyclass}-section`).innerHTML = '';
+	// $(`.${bodyclass}-section`).innerHTML = '';
 	
 	// Hide Modal
 	toggle_modal(modal);
-
+	
+	console.log(bodyclass);
 	// Reload content
-	load_content();
+	load_content('id');
 }
 
-load_content();
+load_content('id');
 
 document.on('click', function(e){
 
@@ -91,7 +107,12 @@ document.on('click', function(e){
 
 		case element.classList.contains('create-button'):
 			$('body').className = element.dataset.body;
+			bodyclass 			= element.dataset.body;
 
+			// If add button of tasks is clicked. set current_card globally to save card index
+			bodyclass == 'tasks' ? current_card = element.closest('.card-container').dataset.id : '' ;
+
+			
 			// Display modal
 			toggle_modal($('.add-modal'));
 		break;
@@ -99,7 +120,6 @@ document.on('click', function(e){
 		case element.classList.contains('submit-button'):
 			data 		= {};
 			data.title 	= $('input[name="title"]').value;
-
 			switch(bodyclass) {
 				case 'lists':
 					ajax_request(data, 'add_list', 'model/listmodel.php');
@@ -110,10 +130,14 @@ document.on('click', function(e){
 					break;
 
 				case 'tasks':
+					data.description 	= $('.add-modal textarea').value;
+					data.status 		= $('.add-modal .status').value;
+					data.duration 		= $('.add-modal input[name="duration"]').value;
+					data.card 			= window['cards'][current_card].id
+
 					ajax_request(data, 'add_task', 'model/taskmodel.php');
 					break;
 			}
-
 			close_modal_reload($('.add-modal'));
 		break;
 
@@ -183,3 +207,15 @@ document.on('click', function(e){
 		break;
 	}
 });
+
+$('.sorting-menu').on('click', function(){
+	this.querySelector('.sorting-menu-container').classList.toggle('d-none');
+});
+
+$$('.sorting-menu-container p').forEach(option => option.on('click', function(){
+	// Empty card container
+	$('.cards-section').innerHTML = '';
+
+	// Load new cards
+	load_content(option.dataset.sort);
+}))

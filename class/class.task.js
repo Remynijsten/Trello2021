@@ -11,7 +11,7 @@ export default class Task{
 		ajax_request(data, 'add_card', 'model/cardmodel.php');
 	}
 
-	remove(id) {
+	delete(id) {
 		data 	= {};
 		data.id = this.id;
 		ajax_request(data, 'remove_task', 'model/taskmodel.php');

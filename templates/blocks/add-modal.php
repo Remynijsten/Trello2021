@@ -12,9 +12,9 @@
             <textarea name="description" placeholder="Description"></textarea>
             <input type="number" name="duration">
             <select class="status">
-                <option value="done">Not Started</option>
-                <option value="done">Busy</option>
-                <option value="done">Done</option>
+                <option value="Not Started">Not Started</option>
+                <option value="Busy">Busy</option>
+                <option value="Done">Done</option>
             </select>
             <button class="submit-button">Add List</button>
         </div>           

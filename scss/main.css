@@ -504,6 +504,10 @@ footer {
   min-width: 300px;
   margin-right: 25px;
 }
+.cards-section .card-container .create-button {
+  position: absolute;
+  bottom: 25px;
+}
 .cards-section .card-container-header {
   display: flex;
   justify-content: space-between;

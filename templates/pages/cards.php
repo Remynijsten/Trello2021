@@ -18,7 +18,7 @@ if(!$_SESSION['login']){
 			<div class='sorting-menu-container d-none'>
 				<p data-sort="id">normal</p>
 				<p data-sort="duration">duration</p>
-				<p data-sort="color">color</p>
+				<p data-sort="status">status</p>
 			</div>
 		</span>
 	</div>

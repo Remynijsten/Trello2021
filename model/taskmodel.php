@@ -19,7 +19,7 @@ if(isset($function)){
 			break;
 
 		case 'add_task':
-			print_r(json_encode(add_task($title)));
+			print_r(json_encode(add_task($title, $description, $status, $duration, $card)));
 			break;
 
 		case 'remove_task':
@@ -39,19 +39,32 @@ if(isset($function)){
 function get_all_tasks($id, $sort){
 	global $conn;
 
-	$stmt = $conn->prepare('SELECT * FROM `tasks` WHERE user=:user AND card=:card ORDER BY '.$sort.' DESC');
+	$stmt = $conn->prepare('SELECT * FROM `tasks` WHERE user=:user AND card=:card ORDER BY '.$sort.' ASC');
 	$stmt->bindParam(':user', $_SESSION['user_id']);
 	$stmt->bindParam(':card', $id);
 	$stmt->execute();
 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function add_task($title){
+function add_task($title, $description, $status, $duration, $card){
+	global $conn;
 
+	$stmt = $conn->prepare('INSERT INTO `tasks` (title, description, status, user, duration, card) VALUES (:title, :description, :status, :user, :duration, :card)');
+	$stmt->bindParam(':title', $title);
+	$stmt->bindParam(':description', $description);
+	$stmt->bindParam(':status', $status);
+	$stmt->bindParam(':user', $_SESSION['user_id']);
+	$stmt->bindParam(':duration', $duration);
+	$stmt->bindParam(':card', $card);
+	$stmt->execute();
 }
 
 function remove_task($id){
+	global $conn;
 
+	$stmt = $conn->prepare('DELETE FROM `tasks` WHERE id=:id');
+	$stmt->bindParam(':id', $id);
+	$stmt->execute();
 }
 
 function update_task($title, $status, $description, $duration, $id){

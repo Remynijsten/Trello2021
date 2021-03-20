@@ -36,6 +36,10 @@
 			min-height: 100px;
 			min-width: 300px;
 			margin-right: 25px;
+			.create-button{
+				position: absolute;
+				bottom: 25px;
+			}
 			&-header{
 				display: flex;
 				justify-content: space-between;
