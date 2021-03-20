@@ -168,7 +168,7 @@ document.on('click', function(e){
 			data.id 	= window[bodyclass][element.dataset.id].id
 			window[bodyclass][element.dataset.id].delete(data);
 
-			
+			window[bodyclass].splice(element.dataset.id, 1);
 
 			// Close modal and reload content
 			close_modal_reload($('.update-modal'));
