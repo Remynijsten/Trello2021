@@ -5,7 +5,7 @@
             <i class="fas fa-times"></i>
         </span>
         <div class="modal_body_content">
-            <h3>Add new list</h3>
+            <h3>Add new</h3>
             <input type="text" name="title" maxlength="10" placeholder='Title'>
 
 
@@ -16,7 +16,7 @@
                 <option value="Busy">Busy</option>
                 <option value="Done">Done</option>
             </select>
-            <button class="submit-button">Add List</button>
+            <button class="submit-button">Add</button>
         </div>           
     </div>
 </div>

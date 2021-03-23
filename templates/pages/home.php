@@ -1,3 +1,13 @@
+<?php 
+// If the user is logged in, redirect to lists
+if(isset($_SESSION['login'])){
+	if($_SESSION['login']){
+		header("Location:" . ROOT . "lists");
+		exit();
+	}	
+}
+?>
+
 <section class="home container d-flex justify-content-center">
 	<div class="row">
 		<div class="col-lg-6 col-md-12 align-self-center">

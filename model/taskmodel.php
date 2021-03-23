@@ -11,11 +11,12 @@ forEach($_POST as $key => $value){
 	$$key = validate($value);
 }
 
+// Checks the post function and calls the correct function
 if(isset($function)){
 
 	switch ($function) {
 		case 'get_all_tasks':
-			print_r(json_encode(get_all_tasks($id, $sort)));
+			print_r(json_encode(get_all_tasks($id, $sort, $filter)));
 			break;
 
 		case 'add_task':
@@ -36,16 +37,30 @@ if(isset($function)){
 	}	
 }
 
-function get_all_tasks($id, $sort){
+/**
+  * Returns all tasks for the related card
+  * @param {$id} integer - related card id to load tasks for
+  * @param {$sort} string - The sorting method to load the rows
+  */
+function get_all_tasks($id, $sort, $filter){
 	global $conn;
 
-	$stmt = $conn->prepare('SELECT * FROM `tasks` WHERE user=:user AND card=:card ORDER BY '.$sort.' ASC');
+	$stmt = $conn->prepare('SELECT * FROM `tasks` WHERE user=:user AND card=:card AND status=:filter ORDER BY '.$sort.' ASC');
+	$stmt->bindParam(':filter', $filter);
 	$stmt->bindParam(':user', $_SESSION['user_id']);
 	$stmt->bindParam(':card', $id);
 	$stmt->execute();
 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+  * Insert a new task in the database
+  * @param {$title} string - Task title
+  * @param {$description} string - The description of the task
+  * @param {$status} string - The status of the task
+  * @param {$duration} integer - The duration of the task
+  * @param {$card} id - The related card to link the task to
+  */
 function add_task($title, $description, $status, $duration, $card){
 	global $conn;
 
@@ -59,6 +74,10 @@ function add_task($title, $description, $status, $duration, $card){
 	$stmt->execute();
 }
 
+/**
+  * Remove a task from the database
+  * @param {$id} integer - Task row id to remove
+  */
 function remove_task($id){
 	global $conn;
 
@@ -67,6 +86,14 @@ function remove_task($id){
 	$stmt->execute();
 }
 
+/**
+  * Update a task
+  * @param {$title} string - Task title
+  * @param {$description} string - The description of the task
+  * @param {$status} string - The status of the task
+  * @param {$duration} integer - The duration of the task
+  * @param {$card} id - The related card to link the task to
+  */
 function update_task($title, $status, $description, $duration, $id){
 	global $conn;
 

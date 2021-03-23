@@ -10,8 +10,7 @@
 				<nav>
 					<ul>
 						<a href="<?= ROOT ?>lists"><li>Lists</li></a>
-						<a href="<?= ROOT ?>account"><li>My Account</li></a>
-						<li class="register-button cm-button-yellow">Add task +</li>
+						<li class='logout'>Logout</li>
 					</ul>
 					<img src="<?= ROOT ?>img/CM-MENU.png" class='menu-toggle'>
 				</nav>

@@ -1,13 +1,51 @@
+// Import classes
 import List from '../class/class.list.js';
 import Card from '../class/class.card.js';
 import Task from '../class/class.task.js';
 
+// Object for the update modal containing all its values
+let update_modal 			= {
+	"title" 				: '',
+	"description" 			: '',
+	"status" 				: '',
+	"duration" 				: '',
+	"nodes" 				: {
+		"modal" 			: $('.update-modal'),
+		"title" 			: $('.update-modal input[name="title"]'),
+		"description" 		: $('.update-modal textarea'),
+		"duration" 			: $('.update-modal input[name="duration"]'),
+		"status" 			: $('.update-modal select')
+	},
+	
+	// Update object properties
+	update() 				{
+		this.title 			= this.nodes.title.value;
+		this.description	= this.nodes.description.value;
+		this.duration 		= this.nodes.duration.value;
+		this.status 		= this.nodes.status.value;
+	},
+
+	// Calls the toggle modal function to switch display classes and hide/show
+	toggle()				{
+		toggle_modal(this.nodes.modal);
+	}
+}
+
+/**
+ * Checks whether the body has the classname given as parameter
+ * @return {boolean} response
+ * @param classname
+ */
 function check_body_class(classname){
 	$('body').classList.contains(classname) ? (bodyclass = classname) && (response = true) : response = false;
 	return response;
 }
 
-function load_content(sort){
+/**
+  * Switches to check the current body class
+  * Empties the content container, sends data request to the server and appends the correct HTML
+  */
+function load_content(sort, filter=''){
 	switch(true) {
 		case check_body_class('lists'):
 			//Clear Wrapper container
@@ -22,6 +60,7 @@ function load_content(sort){
 
 				$('.lists-section').insertAdjacentHTML( 'beforeend', l );
 
+				// Add link to view list button
 				$$('.viewlist').forEach(list => list.on('click', function(){
 					let id = lists[this.closest('.single').dataset.id].id;
 					window.location.href = '//' + root_url + 'cards?list=' + id;
@@ -31,11 +70,11 @@ function load_content(sort){
 
 		case check_body_class('cards'):
 			$('.cards-section').innerHTML = '';
-			console.log('leegmaken');
+
 			// Instantiate new object from Card class, Replace content from html string, Append list to container
 			data.id = list_id;
 			ajax_request(data, 'get_all_cards', 'model/cardmodel.php').forEach( function(data, i) {
-				console.log(data);
+
 				cards[i] 	= new Card(data);
 				let c 		= card_markup;
 				c 			= c.replace('%title%', data.title);
@@ -48,9 +87,9 @@ function load_content(sort){
 
 				// Receive task data per card and append to card container 
 				data.sort 	= sort;
+				data.filter = filter;
 
 				ajax_request(data, 'get_all_tasks', 'model/taskmodel.php').forEach(function(task, i) {
-
 					tasks[tasks.length] 	= new Task(task);
 					let t 					= task_markup;
 					t 						= t.replace('%title%', 			task.title);
@@ -70,12 +109,13 @@ function load_content(sort){
 			});
 		break;
 
-		case check_body_class('tasks'):
-			console.log('dit is sowieso het probleem');
-		break;
 	}
 }
 
+/**
+  * Closes modal and reloads content
+  * @param {modal} Node - The modal element to close
+  */
 function close_modal_reload(modal){
 
 	// If parameter is not of type DOM element, target Element instead of event.
@@ -92,19 +132,23 @@ function close_modal_reload(modal){
 	// Hide Modal
 	toggle_modal(modal);
 	
-	console.log(bodyclass);
+
 	// Reload content
-	load_content('id');
+	load_content(sort, filter);
 }
 
-load_content('id');
+// Load the content for the corresponding page
+load_content(sort, 'Not Started');
 
+// Event listener that checks the event target element and switches function routing based on the elements classname
 document.on('click', function(e){
 
+	// Event target
 	let element = e.target;
 
 	switch(true) {
 
+		// Add button to create a new list/card/task
 		case element.classList.contains('create-button'):
 			$('body').className = element.dataset.body;
 			bodyclass 			= element.dataset.body;
@@ -117,6 +161,7 @@ document.on('click', function(e){
 			toggle_modal($('.add-modal'));
 		break;
 
+		// Modal submit button
 		case element.classList.contains('submit-button'):
 			data 		= {};
 			data.title 	= $('input[name="title"]').value;
@@ -124,6 +169,7 @@ document.on('click', function(e){
 				case 'lists':
 					ajax_request(data, 'add_list', 'model/listmodel.php');
 					break;
+
 				case 'cards':
 					data.link 	= list_id;
 					ajax_request(data, 'add_card', 'model/cardmodel.php');
@@ -141,12 +187,13 @@ document.on('click', function(e){
 			close_modal_reload($('.add-modal'));
 		break;
 
+		// Button to open the update modal
 		case element.classList.contains('update-button'):
 
 			$('body').className = element.dataset.body;
 
 			// Display modal
-			toggle_modal($('.update-modal'));
+			update_modal.toggle()
 
 			// Fill modal fields
 			$('.update-modal input[name="title"]').value = element.closest('.single').querySelector('.single-title').innerText;
@@ -165,28 +212,32 @@ document.on('click', function(e){
 
 		break;
 
+		// The update button in the update modal
 		case element.classList.contains('update'):
 			data 					= {};
 
 			// add extra properties to data object when editing task
 			if(check_body_class('tasks')){
-				data.description 	= $('.update-modal textarea').value
-				data.duration 		= $('.update-modal input[name="duration"]').value;
-				data.status 		= $('.update-modal select').value;
+				data.description 	= update_modal.nodes.description.value;
+				data.duration 		= update_modal.nodes.duration.value;
+				data.status 		= update_modal.nodes.status.value;
 			}
 
-			data.title 				= element.closest('.modal').querySelector('input[name="title"]').value;
+			data.title 				= update_modal.nodes.title.value;
 			data.id 				= window[bodyclass][element.dataset.id].id;
 			window[bodyclass][element.dataset.id].update(data);
 
-			// switch bodyclass back to cards
-			check_body_class('tasks') ? bodyclass = 'cards' : '' ;
-			$('body').className = 'cards'
+			// switch bodyclass back to cards if task update modal is closed
+			if(check_body_class('tasks')){
+				bodyclass = 'cards'
+				$('body').className = 'cards'
+			}			
 
 			// Close modal and reload content
 			close_modal_reload($('.update-modal'));
 		break;
 
+		// The remove button in the update modal
 		case element.classList.contains('remove'):
 			data 		= {};
 			data.id 	= window[bodyclass][element.dataset.id].id
@@ -198,24 +249,57 @@ document.on('click', function(e){
 			close_modal_reload($('.update-modal'));
 		break;
 
+		// The cancel button in the update modal
 		case element.classList.contains('cancel'):
 			close_modal_reload(element.closest('.modal'))
 			break;
 
-		case element.classList.contains('.modal_body_close'):
+		// The close button of any modal
+		case element.classList.contains('modal_body_close'):
+		console.log('close button');
 			close_modal_reload(element.closest('.modal'))
+		break;
+
+		// The logout option in the header menu
+		case element.classList.contains('logout'):
+			data.function = 'logout'
+			ajax_request({}, data.function, 'model/usermodel.php');
+			window.location.href = root;	
 		break;
 	}
 });
 
-$('.sorting-menu').on('click', function(){
-	this.querySelector('.sorting-menu-container').classList.toggle('d-none');
-});
+// If the sorting menu element exists, add on click listener to reload content with its sorting string
+if($('.sorting-menu')){
+	$('.sorting-menu').on('click', function(){
+		this.querySelector('.sorting-menu-container').classList.toggle('d-none');
+	});
 
-$$('.sorting-menu-container p').forEach(option => option.on('click', function(){
-	// Empty card container
-	$('.cards-section').innerHTML = '';
+	$$('.sorting-menu-container p').forEach(option => option.on('click', function(){
+		// Empty card container
+		$('.cards-section').innerHTML = '';
 
-	// Load new cards
-	load_content(option.dataset.sort);
-}))
+		sort = option.dataset.sort;
+
+		// Load new cards
+		load_content(sort, filter);
+	}))	
+}
+
+// If the sorting menu element exists, add on click listener to reload content with its sorting string
+if($('.filter-menu')){
+	$('.filter-menu').on('click', function(){
+		console.log('click filter');
+		this.querySelector('.filter-menu-container').classList.toggle('d-none');
+	});
+
+	$$('.filter-menu-container p').forEach(option => option.on('click', function(){
+		// Empty card container
+		$('.cards-section').innerHTML = '';
+
+		let filter_option = option.dataset.filter;
+
+		// Load new cards
+		load_content(sort, filter_option);
+	}))	
+}

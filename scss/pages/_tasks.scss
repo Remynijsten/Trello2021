@@ -1,3 +1,7 @@
+.tasks{
+	background-image: url('../img/CM-BG.png');
+	background-size: cover;	
+}
 .task-container{
 	&-description{
 		font-size: 14px;
@@ -19,10 +23,4 @@
 			}
 		}
 	}	
-}
-
-
-
-
-
-
+}	

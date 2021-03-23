@@ -22,8 +22,5 @@ export default class Card {
 	update(data) {
 		ajax_request(data, 'update_card', 'model/cardmodel.php');		
 	}
-
-	return_link(){
-
-	}
+	
 }

@@ -5,8 +5,10 @@ session_start();
 require('../core/core_functions.php');
 require('../core/connection.php');
 
+// Convert raw input string to PHP object
 $_POST = json_decode(file_get_contents('php://input'));
 
+// Creates new variables for each post value
 forEach($_POST as $key => $value){
 	$$key = validate($value);
 }
@@ -36,6 +38,10 @@ if(isset($function)){
 	}	
 }
 
+/**
+  * Returns all card rows by user's ID and the related list
+  * @param {$id} integer - Related list id to load cards for
+  */
 function get_all_cards($id){
 	global $conn;
 
@@ -46,6 +52,11 @@ function get_all_cards($id){
 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+  * Inserts a new card in the database
+  * @param {$title} string - Card title
+  * @param {$list} integer - Related list id
+  */
 function add_card($title, $list){
 	global $conn;
 
@@ -57,6 +68,10 @@ function add_card($title, $list){
 
 }
 
+/**
+  * Removes a card row from the database
+  * @param {$title} integer - card row id
+  */
 function remove_card($id){
 	global $conn;
 
@@ -65,6 +80,11 @@ function remove_card($id){
 	$stmt->execute();
 }
 
+/**
+  * Update a card title
+  * @param {$title} string - card title
+  * @param {$id} integer - card row id
+  */
 function update_card($title, $id){
 	global $conn;
 

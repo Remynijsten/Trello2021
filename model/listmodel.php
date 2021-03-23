@@ -5,12 +5,15 @@ session_start();
 require('../core/core_functions.php');
 require('../core/connection.php');
 
+// Convert raw input string to PHP object
 $_POST = json_decode(file_get_contents('php://input'));
 
+// Creates new variables for each post value
 forEach($_POST as $key => $value){
 	$$key = validate($value);
 }
 
+// Checks the post function and calls the correct function
 if(isset($function)){
 
 	switch ($function) {
@@ -36,6 +39,9 @@ if(isset($function)){
 	}	
 }
 
+/**
+  * Returns all list row by user's ID
+  */
 function get_all_lists(){
 	global $conn;
 
@@ -47,6 +53,9 @@ function get_all_lists(){
 	return $result;
 }
 
+/**
+  * Inserts a new list in the database
+  */
 function add_list($title){
 	global $conn;
 	$user 		= intval($_SESSION['user_id']);
@@ -58,6 +67,10 @@ function add_list($title){
 	$q->execute();
 }
 
+/**
+  * Removes a row by the ID given as parameter
+  * @param {$id} integer - The row id to remove
+  */
 function remove_list($id){
 	global $conn;
 
@@ -67,6 +80,11 @@ function remove_list($id){
 	return $stmt->execute();
 }
 
+/**
+  * Updates a list title
+  * @param {$title} string - The list title
+  * @param {$id} integer - The row id to update
+  */
 function update_list($title, $id){
 	global $conn;
 

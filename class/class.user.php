@@ -18,6 +18,8 @@ class User {
 
 	/**
 	  * Logs the user in by setting the session variables
+	  * @param {$name} string - Users name
+	  * @param {$mail} string - Users email
 	  */
 	public function log_in($name, $mail){
 		$_SESSION['login'] 		= true;
@@ -28,6 +30,7 @@ class User {
 
 	/**
 	  * Return the user's name from the database
+	  * @param {$mail} string - Users email
 	  */	
 	public function return_name($mail){
 		global $conn;

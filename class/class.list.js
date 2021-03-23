@@ -12,7 +12,7 @@ export default class List {
 	  * Removes a list from the database
 	  * @params {integer} The row id to remove
 	  */
-	delete(id) {
+	delete() {
 		data.id = this.id;
 		ajax_request(data, 'remove_list', 'model/listmodel.php');
 	}

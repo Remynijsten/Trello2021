@@ -132,7 +132,7 @@ footer {
 .modal_body_message {
   padding: 50px 100px;
   height: 100%;
-  margin-top: 50px;
+  margin-top: 150px;
   display: flex;
   align-items: center;
 }
@@ -479,6 +479,10 @@ footer {
   width: 200px;
 }
 
+.cards {
+  background-image: url("../img/CM-BG.png");
+  background-size: cover;
+}
 .cards .title {
   display: flex;
   justify-content: space-between;
@@ -552,6 +556,11 @@ footer {
   cursor: pointer;
 }
 
+.tasks {
+  background-image: url("../img/CM-BG.png");
+  background-size: cover;
+}
+
 .task-container-description {
   font-size: 14px;
 }
@@ -569,11 +578,6 @@ footer {
   margin: 0;
   display: flex;
   align-self: center;
-}
-
-body {
-  background-image: url("../img/CM-BG.png");
-  background-size: cover;
 }
 
 .row, * {
